@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public float canFire = -1f;
     private SpawnManager _spawnManager;
     public int lives = 3;
+    [SerializeField]
     private bool _isTripleShotActive = false;
     public GameObject Triple_Shot;
     //variable for isTripleShotActive
@@ -28,7 +29,7 @@ public class Player : MonoBehaviour
     {
         CalculateMovement();
 
-        isTripleShotActive();
+        FireLaser();
 
 
         if(Input.GetKeyDown("space") && Time.time > canFire)
@@ -76,7 +77,7 @@ public class Player : MonoBehaviour
 
             if(_isTripleShotActive == true)
             {
-                Instantiate(_isTripleShotActive, transform.position, Quaternion.identity);
+                Instantiate(Triple_Shot, transform.position, Quaternion.identity);
             }
             else
             {

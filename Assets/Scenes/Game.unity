@@ -243,6 +243,7 @@ MonoBehaviour:
   fireRate: 0.15
   canFire: -1
   lives: 3
+  _isTripleShotActive: 0
   Triple_Shot: {fileID: 772489377832792401, guid: 6298a3a38acd8394e9e9960eb5ba9e9a, type: 3}
 --- !u!212 &1251420726
 SpriteRenderer:
