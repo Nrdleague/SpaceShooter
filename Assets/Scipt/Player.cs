@@ -8,12 +8,15 @@ public class Player : MonoBehaviour
     public GameObject laserPrefab;
     public float fireRate = 0.5f;
     public float canFire = -1f;
+
+    [SerializeField]
     private SpawnManager _spawnManager;
+    
     public int lives = 3;
     [SerializeField]
     private bool _isTripleShotActive = false;
     public GameObject Triple_Shot;
-    //variable for isTripleShotActive
+    
     
 
     // Start is called before the first frame update
@@ -86,7 +89,7 @@ public class Player : MonoBehaviour
 
             Instantiate(laserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity );
 
-            //Instantiate 3 lasers(triple shot prefab)
+            
 
        }
        
@@ -98,8 +101,7 @@ public class Player : MonoBehaviour
         
         lives -= 1;
 
-        //check if dead
-        //destroy us 
+         
         if (lives < 1)
         {
             _spawnManager.OnPlayerDeath();
