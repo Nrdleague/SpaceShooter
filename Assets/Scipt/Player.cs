@@ -5,24 +5,26 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float speed = 3.5f;
-    public GameObject laserPrefab;
-    public float fireRate = 0.5f;
-    public float canFire = -1f;
-
+    [SerializeField]
+    public GameObject _laserPrefab;
+    [SerializeField]
+    public float _fireRate = 0.150f;
+    [SerializeField]
+    private float _canFire = -1f;
     [SerializeField]
     private SpawnManager _spawnManager;
-    
     public int lives = 3;
     [SerializeField]
     private bool _isTripleShotActive = false;
-    public GameObject Triple_Shot;
+    [SerializeField]
+    private GameObject _tripleshotPrefab;
     
     
 
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = new Vector3(0, 0 , 0);
+        transform.position = new Vector3(0, -2 , 0);
         _spawnManager = GameObject.Find ("Spawn_Manager").GetComponent<SpawnManager>(); 
     }
     
@@ -32,10 +34,10 @@ public class Player : MonoBehaviour
     {
         CalculateMovement();
 
-        FireLaser();
+       
 
 
-        if(Input.GetKeyDown("space") && Time.time > canFire)
+        if(Input.GetKeyDown("space") && Time.time > _canFire)
         {
             FireLaser();
         }
@@ -51,7 +53,8 @@ public class Player : MonoBehaviour
 
         transform.Translate(direction * speed * Time.deltaTime);
 
-       
+        
+
         if (transform.position.y >= 0)
         {
             transform.position = new Vector3(transform.position.x, 0, 0);
@@ -71,27 +74,21 @@ public class Player : MonoBehaviour
             transform.position = new Vector3(11.3f, transform.position.y, 0);
         }
     }
+
     void FireLaser()
     {
-        if(Input.GetKeyDown("space") && Time.time > canFire)
-       {
+        _canFire = Time.time + _fireRate;
 
-            canFire = Time.time + fireRate;
+        if(_isTripleShotActive == true)
+        {
+            Instantiate(_tripleshotPrefab, transform.position, Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
+        }
 
-            if(_isTripleShotActive == true)
-            {
-                Instantiate(Triple_Shot, transform.position, Quaternion.identity);
-            }
-            else
-            {
-
-            }
-
-            Instantiate(laserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity );
-
-            
-
-       }
+      
        
     }
    
