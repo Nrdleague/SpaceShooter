@@ -20,7 +20,7 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
 
@@ -29,9 +29,10 @@ public class SpawnManager : MonoBehaviour
     {
         while(_stopSpawning == false)
         {
-            Vector3 posToSpawn = new Vector3(Random.Range(-8f, 9f), 7, 0);
-            GameObject newEnemy = Instantiate(_enemyPrefab, posToSpawn, Quaternion.identity);
-            newEnemy.transform.parent = _enemyContainer.transform;
+            Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 7, 0);
+            //GameObject newEnemy = Instantiate(_enemyPrefab, posToSpawn, Quaternion.identity);
+            //newEnemy.transform.parent = _enemyContainer.transform;
+            Instantiate(_enemyPrefab, posToSpawn, Quaternion.identity);
             yield return new WaitForSeconds(6.0f);
         }
         

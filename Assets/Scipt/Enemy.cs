@@ -21,7 +21,7 @@ public float speed = 4.0f;
         if(transform.position.y < -5f)
         {
             float randomX = Random.Range(-8f, 8f);
-            transform.position = new Vector3(Random.Range(-8f, 8f), 7, 0);
+            transform.position = new Vector3(randomX, 8, 0);
         }
 
     }
