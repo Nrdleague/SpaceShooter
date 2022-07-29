@@ -6,7 +6,7 @@ public class Laser : MonoBehaviour
 {
     //speed variable of 8
     public float speed = 8.5f;
-   
+ 
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +22,11 @@ public class Laser : MonoBehaviour
          
         if (transform.position.y > 8 )
         {
+            
+            if(transform.parent != null)
+            {
+                Destroy(transform.parent.gameObject);
+            }
             Destroy(this.gameObject);
         }
         

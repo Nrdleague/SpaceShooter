@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7780360386535816464}
   - component: {fileID: 7780360386535816467}
-  - component: {fileID: 7780360386535816466}
   - component: {fileID: 7780360386535816469}
   - component: {fileID: 7780360386535816468}
+  - component: {fileID: 1057946495}
   m_Layer: 0
   m_Name: Triple_Shot_Powerup
   m_TagString: Triple_Shot_Powerup
@@ -87,32 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &7780360386535816466
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7780360386535816471}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.03801775, y: 0.076034784}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.12, y: 5.12}
-    newSize: {x: 5.12, y: 5.12}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 4.131546, y: 4.359649}
-  m_EdgeRadius: 0
 --- !u!50 &7780360386535816469
 Rigidbody2D:
   serializedVersion: 4
@@ -147,3 +121,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _powerupspeed: 3
+--- !u!58 &1057946495
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7780360386535816471}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.11405277, y: 0}
+  serializedVersion: 2
+  m_Radius: 2.9781919

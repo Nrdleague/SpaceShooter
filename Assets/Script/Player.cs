@@ -15,10 +15,10 @@ public class Player : MonoBehaviour
     private SpawnManager _spawnManager;
     public int lives = 3;
     [SerializeField]
-    private bool _isTripleShotActive = false;
+    private bool _isTripleShotActive = true;
     [SerializeField]
     private GameObject _tripleshotPrefab;
-    public bool tripleShotActive = false;
+    
     
 
     // Start is called before the first frame update
@@ -109,27 +109,18 @@ public class Player : MonoBehaviour
 
     public void TripleShotActive()
     {
-        //tripleshotactive becomes true
-        if(tripleShotActive == false)
-        {
-            StartCoroutine(_powerdown);
-        }
-        //start the power down coroutine for triple shot
+        _isTripleShotActive = true;
+        StartCoroutine(TripleShotPowerDownRoutine());
     }
 
-    IEnumerator CooldownRoutine()
+    IEnumerator TripleShotPowerDownRoutine()
     {
-        while (_stopSpawning == false)
         {
-            Vector3 posToSpawn = new Vector3(Random.Range(-8.0f, -8.0f), 7, 0);
-            GameObject newEnemy = Instantiate(_enemyPrefab, posToSpawn, Quaternion.identity);
-            newEnemy.transform.parent = _enemyContainer.transform;
-            yield return new WaitForSeconds(6.0f);
+            yield return new WaitForSeconds(5.0f);
+            _isTripleShotActive = false;
         }
 
     }
-    //IEnumerator TripleShotPowerDownRoutine
-    //Wait 5 seconds
-    //set the triple shot to false
-
+    
+   
 }
