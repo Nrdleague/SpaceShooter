@@ -18,10 +18,14 @@ public float speed = 4.0f;
     {
         transform.Translate(Vector3.down * speed * Time.deltaTime);
 
-        if(transform.position.y < -5f)
+        if(transform.position.y < -6.0f)
         {
             float randomX = Random.Range(-8f, 8f);
+<<<<<<< HEAD
             transform.position = new Vector3(randomX, 8, 0);
+=======
+            transform.position = new Vector3(randomX, 8,0);
+>>>>>>> 436b786683c946b8522c6930c51908d52679045c
         }
 
     }
