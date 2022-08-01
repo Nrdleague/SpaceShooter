@@ -18,6 +18,8 @@ public class Player : MonoBehaviour
     private bool _isTripleShotActive = true;
     [SerializeField]
     private GameObject _tripleshotPrefab;
+    [SerializeField]
+    private float _speedpowerup = 8.5f;
     
     
 
@@ -52,7 +54,14 @@ public class Player : MonoBehaviour
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
 
         transform.Translate(direction * speed * Time.deltaTime);
+        //if speed boost is active
+        //move player at 8.5 seconds
+        //then cooldown after 5 seconds
 
+        if (_speedpowerup == 8.5f)
+        {
+            transform.Translate(direction * _speedpowerup * Time.deltaTime);
+        }
         
 
         if (transform.position.y >= 0)

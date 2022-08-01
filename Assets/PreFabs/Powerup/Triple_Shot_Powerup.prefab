@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7780360386535816469}
   - component: {fileID: 7780360386535816468}
   - component: {fileID: 1057946495}
+  - component: {fileID: 1684695016}
   m_Layer: 0
   m_Name: Triple_Shot_Powerup
   m_TagString: Triple_Shot_Powerup
@@ -73,8 +74,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1971528869
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ed6681d697652144a913093bf7ad1d43, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -121,6 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _powerupspeed: 3
+  powerupID: 1
 --- !u!58 &1057946495
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -137,3 +139,23 @@ CircleCollider2D:
   m_Offset: {x: -0.11405277, y: 0}
   serializedVersion: 2
   m_Radius: 2.9781919
+--- !u!95 &1684695016
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7780360386535816471}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5d4a0ee4fc22fc145a4b6a77dfd95c94, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

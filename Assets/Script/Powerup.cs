@@ -5,9 +5,12 @@ using UnityEngine;
 public class Powerup : MonoBehaviour
 {
     [SerializeField]
-    private float _powerupspeed = 3.0f;
-    [SerializeField]
-    
+    private float _powerupspeed = 8.5f;
+
+    // 0 = tripleshot
+    // 1 = spped
+    // 2 = shields 
+    public int powerupID;
 
 
 
@@ -38,9 +41,27 @@ public class Powerup : MonoBehaviour
             Player player = other.transform.GetComponent<Player>();
             if(player != null)
             {
-                player.TripleShotActive();
+ 
+                switch(powerupID)
+                {
+                    case 0:
+                        player.TripleShotActive();
+                        break;
+                    case 1:
+                        Debug.Log("Collected speed boost");
+                        break;
+                    default:
+                    case 2:
+                        Debug.Log("Deafault Value");
+                        break;
+                }
+            
             }
             Destroy(this.gameObject);
         }
     }
+
+    
+
+
 }   
