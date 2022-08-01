@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _powerupspeed: 3
-  powerupID: 1
+  powerupID: 0
 --- !u!58 &1057946495
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -4,24 +4,31 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float speed = 3.5f;
+    public float speed = 5.0f;
     [SerializeField]
-    public GameObject _laserPrefab;
-    [SerializeField]
+    private GameObject _laserPrefab;
+    
     public float _fireRate = 0.150f;
-    [SerializeField]
+   
     private float _canFire = -1f;
     [SerializeField]
     private SpawnManager _spawnManager;
     public int lives = 3;
     [SerializeField]
-    private bool _isTripleShotActive = true;
-    [SerializeField]
     private GameObject _tripleshotPrefab;
+    
+
     [SerializeField]
-    private float _speedpowerup = 8.5f;
+    private float _speedmultiplier = 2.0f;
+
+    private GameObject 
+    
+    //private bool _isSpeedBoostActive = false;
+    private bool _isTripleShotActive = false;
+    private bool _isShieldsActive = false;
     
     
+
 
     // Start is called before the first frame update
     void Start()
@@ -58,10 +65,7 @@ public class Player : MonoBehaviour
         //move player at 8.5 seconds
         //then cooldown after 5 seconds
 
-        if (_speedpowerup == 8.5f)
-        {
-            transform.Translate(direction * _speedpowerup * Time.deltaTime);
-        }
+       
         
 
         if (transform.position.y >= 0)
@@ -104,6 +108,17 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
+        if (_isShieldsActive == true)
+        {
+            _isShieldsActive = false;      
+            return;
+        }
+      
+        //if shields is active
+        //do nothing
+        //deactivate shields
+        //return;
+
         
         lives -= 1;
 
@@ -130,6 +145,26 @@ public class Player : MonoBehaviour
         }
 
     }
+
+    public void SpeedBoostActive()
+    {
+        _isSpeedBoostActive = true;
+        speed *= _speedmultiplier; 
+        StartCoroutine(SpeedBoostPowerDownRoutine());
+    }
+
+    IEnumerator SpeedBoostPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5.0f);
+        _isSpeedBoostActive = false;
+        speed /= _speedmultiplier;
+    }
     
+    public void ShieldsActive()
+    {
+        _isShieldsActive = true;
+        return;
+    }
+
    
 }
