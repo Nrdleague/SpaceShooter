@@ -21,9 +21,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _speedmultiplier = 2.0f;
 
-    private GameObject 
+    
     
     //private bool _isSpeedBoostActive = false;
+    
     private bool _isTripleShotActive = false;
     private bool _isShieldsActive = false;
     
