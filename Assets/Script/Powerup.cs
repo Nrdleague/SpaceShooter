@@ -7,9 +7,7 @@ public class Powerup : MonoBehaviour
     [SerializeField]
     private float _powerupspeed = 8.5f;
 
-    // 0 = tripleshot
-    // 1 = spped
-    // 2 = shields 
+   
     public int powerupID;
 
 
@@ -51,7 +49,7 @@ public class Powerup : MonoBehaviour
                         player.SpeedBoostActive();
                         break;
                     case 2:
-                        //player.ShieldsActive();
+                        player.ShieldsActive();
                         break;
                     default:
                         Debug.Log("normal");

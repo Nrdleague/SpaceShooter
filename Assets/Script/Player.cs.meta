@@ -7,6 +7,7 @@ MonoImporter:
   - _laserPrefab: {fileID: 6300938615926712040, guid: 53c351ad6f46a554cb0c0964754d32fd, type: 3}
   - _spawnManager: {instanceID: 0}
   - _tripleshotPrefab: {fileID: 2984327673600483268, guid: 6298a3a38acd8394e9e9960eb5ba9e9a, type: 3}
+  - _shieldVisualizer: {fileID: 3380665440902587006, guid: 09629b13218039148b293a3e6d94099c, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

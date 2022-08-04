@@ -4,32 +4,44 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float speed = 5.0f;
-    [SerializeField]
-    private GameObject _laserPrefab;
     
-    public float _fireRate = 0.150f;
-   
+    
+    public float speed = 3.5f;
+    [SerializeField]
+    private float _fireRate = 0.150f;
     private float _canFire = -1f;
-    [SerializeField]
-    private SpawnManager _spawnManager;
-    public int lives = 3;
-    [SerializeField]
-    private GameObject _tripleshotPrefab;
-    
-
-    [SerializeField]
+    private int lives = 3;
     private float _speedmultiplier = 2.0f;
 
-    
-    
-    //private bool _isSpeedBoostActive = false;
-    
-    private bool _isTripleShotActive = false;
-    private bool _isShieldsActive = false;
-    
+    [SerializeField]
+    private SpawnManager _spawnManager;
+
     
 
+    [SerializeField]
+    private GameObject _tripleshotPrefab;
+    [SerializeField]
+    private GameObject _laserPrefab;
+    [SerializeField]
+    private GameObject _shieldVisualizer;
+
+    [SerializeField]
+    private bool _isTripleShotActive = false;
+    private bool _isShieldsActive = false;
+    private bool _isSpeedBoostActive = false;
+
+
+    [SerializeField]
+    private int _Score;
+
+
+
+
+
+
+
+
+    
 
     // Start is called before the first frame update
     void Start()
@@ -62,30 +74,20 @@ public class Player : MonoBehaviour
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
 
         transform.Translate(direction * speed * Time.deltaTime);
-        //if speed boost is active
-        //move player at 8.5 seconds
-        //then cooldown after 5 seconds
+
+        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.8f, 0));
+        
 
        
         
-
-        if (transform.position.y >= 0)
-        {
-            transform.position = new Vector3(transform.position.x, 0, 0);
-        }
-        else if (transform.position.y <= -3.8f)
-        {
-            transform.position = new Vector3(transform.position.x, -3.8f, 0);
-        }
         
-        
-        if(transform.position.x > 11.3f )
+        if(transform.position.x > 11 )
         {
-            transform.position = new Vector3(11.3f, transform.position.y, 0);
+            transform.position = new Vector3(-11, transform.position.y, 0);
         }
         else if (transform.position.x < -11f)
         {
-            transform.position = new Vector3(11.3f, transform.position.y, 0);
+            transform.position = new Vector3(11, transform.position.y, 0);
         }
     }
 
@@ -111,15 +113,13 @@ public class Player : MonoBehaviour
     {
         if (_isShieldsActive == true)
         {
-            _isShieldsActive = false;      
+            _isShieldsActive = false;
+            
+            _shieldVisualizer.SetActive(false);
             return;
         }
       
-        //if shields is active
-        //do nothing
-        //deactivate shields
-        //return;
-
+        
         
         lives -= 1;
 
@@ -164,8 +164,16 @@ public class Player : MonoBehaviour
     public void ShieldsActive()
     {
         _isShieldsActive = true;
-        return;
+
+        _shieldVisualizer.SetActive(true);
+      
     }
 
-   
+    public void ScoreCount()
+    {
+
+    }
+
+    //method to add 10 to the score!
+   //Communicate with the UI to update the score!
 }

@@ -42,6 +42,7 @@ public float speed = 4.0f;
         if (other.tag == "Laser")
         {
             Destroy(other.gameObject);
+            // add 10 to score  
             Destroy(this.gameObject);
         }
        

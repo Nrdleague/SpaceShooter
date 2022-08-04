@@ -15,6 +15,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject [] powerups;
     
+    
 
     private bool _stopSpawning = false;
     // Start is called before the first frame update
@@ -59,7 +60,8 @@ public class SpawnManager : MonoBehaviour
 
     }
 
-   
+  
+
 
 
     public void OnPlayerDeath()

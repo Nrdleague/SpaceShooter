@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 633527127}
   - component: {fileID: 633527130}
   - component: {fileID: 633527129}
-  - component: {fileID: 633527128}
+  - component: {fileID: 1008735856}
   m_Layer: 0
   m_Name: ShieldPowerUp
   m_TagString: ShieldPowerUp
@@ -145,7 +145,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &633527128
+--- !u!114 &1008735856
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -154,17 +154,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1200582138870670259}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35e94b6038e6f7746b240310bbe0577e, type: 3}
+  m_Script: {fileID: 11500000, guid: 84483b836d21da5418009dbc8961dd6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  _laserPrefab: {fileID: 6300938615926712040, guid: 53c351ad6f46a554cb0c0964754d32fd, type: 3}
-  _fireRate: 0.15
-  _canFire: -1
-  _spawnManager: {fileID: 0}
-  lives: 3
-  _tripleshotPrefab: {fileID: 2984327673600483268, guid: 6298a3a38acd8394e9e9960eb5ba9e9a, type: 3}
-  _speedmultiplier: 2
-  _isSpeedBoostActive: 0
-  isShieldsActive: 0
-  ShieldPowerUp: {fileID: 1200582138870670259}
+  _powerupspeed: 8.5
+  powerupID: 2
