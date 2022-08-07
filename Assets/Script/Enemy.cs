@@ -1,19 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
 
-public float speed = 4.0f;
+    public float speed = 4.0f;
+    [SerializeField]
+    private Player _player;
 
-    // Start is called before the first frame update
+
+    
     void Start()
     {
-        
+        _player = GameObject.Find("Player").GetComponent<Player>();
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         transform.Translate(Vector3.down * speed * Time.deltaTime);
@@ -42,7 +46,13 @@ public float speed = 4.0f;
         if (other.tag == "Laser")
         {
             Destroy(other.gameObject);
-            // add 10 to score  
+             
+            if (_player != null)
+            {
+                _player.AddScore(10);
+
+            }
+
             Destroy(this.gameObject);
         }
        

@@ -10,6 +10,7 @@ TagManager:
   - Triple_Shot_Powerup
   - ShieldPowerUp
   - Shields
+  - LaserBeam
   layers:
   - Default
   - TransparentFX

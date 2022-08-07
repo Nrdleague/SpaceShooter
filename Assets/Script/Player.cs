@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -16,19 +17,22 @@ public class Player : MonoBehaviour
     [SerializeField]
     private SpawnManager _spawnManager;
 
-    
+
 
     [SerializeField]
     private GameObject _tripleshotPrefab;
     [SerializeField]
-    private GameObject _laserPrefab;
+    private GameObject _laserPrefab; 
     [SerializeField]
     private GameObject _shieldVisualizer;
+   
+   
 
     [SerializeField]
     private bool _isTripleShotActive = false;
     private bool _isShieldsActive = false;
     private bool _isSpeedBoostActive = false;
+    
 
 
     [SerializeField]
@@ -36,7 +40,7 @@ public class Player : MonoBehaviour
 
 
 
-
+    private UI_Manager _uiManager;
 
 
 
@@ -47,7 +51,18 @@ public class Player : MonoBehaviour
     void Start()
     {
         transform.position = new Vector3(0, -2 , 0);
-        _spawnManager = GameObject.Find ("Spawn_Manager").GetComponent<SpawnManager>(); 
+        _spawnManager = GameObject.Find ("Spawn_Manager").GetComponent<SpawnManager>();
+        _uiManager = GameObject.Find("Canvas").GetComponent<UI_Manager>();
+
+        if (_spawnManager == null)
+        {
+            Debug.LogError("the spawn manager is null");
+        }
+
+        if (_uiManager == null)
+        {
+            Debug.LogError("the UI manager is null");
+        }
     }
     
 
@@ -123,6 +138,7 @@ public class Player : MonoBehaviour
         
         lives -= 1;
 
+        _uiManager.UpdateLives(lives);
          
         if (lives < 1)
         {
@@ -169,11 +185,13 @@ public class Player : MonoBehaviour
       
     }
 
-    public void ScoreCount()
-    {
+  
 
+    public void AddScore(int points)
+    {
+        _uiManager.UpdateScore(_Score); 
+        _Score += points;
     }
 
-    //method to add 10 to the score!
-   //Communicate with the UI to update the score!
+  
 }
