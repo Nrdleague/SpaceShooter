@@ -25,6 +25,10 @@ public class Player : MonoBehaviour
     private GameObject _laserPrefab; 
     [SerializeField]
     private GameObject _shieldVisualizer;
+    [SerializeField]
+    private GameObject _rightEngine;
+    [SerializeField]
+    private GameObject _leftEngine;
    
    
 
@@ -134,8 +138,23 @@ public class Player : MonoBehaviour
             return;
         }
       
-        
-        
+        //if lives is 2
+        if (lives <= 2)
+        {
+            //enable right engine
+            _rightEngine.SetActive(true);
+            
+        }
+        //else if live is 1
+        else if (lives >= 1)
+        {
+            //enable left engine
+            _leftEngine.SetActive(true);
+        }
+       
+
+
+
         lives -= 1;
 
         _uiManager.UpdateLives(lives);
