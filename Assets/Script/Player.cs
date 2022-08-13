@@ -29,12 +29,16 @@ public class Player : MonoBehaviour
     private GameObject _rightEngine;
     [SerializeField]
     private GameObject _leftEngine;
-   
-   
-
     [SerializeField]
+    private AudioClip _laserShot;
+    private AudioSource _audioSource;
+    [SerializeField]
+    private AudioClip _explosionSound;
+    
     private bool _isTripleShotActive = false;
+   
     private bool _isShieldsActive = false;
+    
     private bool _isSpeedBoostActive = false;
     
 
@@ -123,13 +127,38 @@ public class Player : MonoBehaviour
             Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
         }
 
-      
-       
+        
+
     }
+
+    public void SoundEffects()
+    {
+        _audioSource = GetComponent<AudioSource>();
+
+        if (_audioSource == null)
+        {
+            Debug.LogError("The audio source on the player is NULL");
+        }
+
+        _audioSource.PlayOneShot(_laserShot);
+
+     
+    }
+
+
    
 
     public void Damage()
     {
+        _audioSource = GetComponent<AudioSource>();
+
+        if (_audioSource == null)
+        {
+            Debug.LogError("The audio source on the player is NULL");
+        }
+
+        _audioSource.PlayOneShot(_explosionSound);
+
         if (_isShieldsActive == true)
         {
             _isShieldsActive = false;
@@ -138,17 +167,17 @@ public class Player : MonoBehaviour
             return;
         }
       
-        //if lives is 2
+        
         if (lives <= 2)
         {
-            //enable right engine
+            
             _rightEngine.SetActive(true);
             
         }
-        //else if live is 1
+      
         else if (lives >= 1)
         {
-            //enable left engine
+           
             _leftEngine.SetActive(true);
         }
        

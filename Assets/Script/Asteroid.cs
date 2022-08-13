@@ -35,12 +35,7 @@ public class Asteroid : MonoBehaviour
         }
 
     }
-    //check for LASER collision (trigger)
-
-    //instantiate explosion at the position of the asteroid(us)
-    //destroy the explosion after 3 seconds
-
-
+    
 
 
 

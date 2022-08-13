@@ -7,8 +7,11 @@ public class Powerup : MonoBehaviour
     [SerializeField]
     private float _powerupspeed = 5.5f;
 
-   
+    
+    private AudioSource _audiosource;
+
     public int powerupID;
+    private AudioClip _powerupSound;
 
 
 
@@ -39,7 +42,10 @@ public class Powerup : MonoBehaviour
             Player player = other.transform.GetComponent<Player>();
             if(player != null)
             {
- 
+               
+               
+
+
                 switch(powerupID)
                 {
                     case 0:
@@ -54,6 +60,9 @@ public class Powerup : MonoBehaviour
                     default:
                         Debug.Log("normal");
                         break;
+
+                        _audiosource = GetComponent<AudioSource>();
+                        _audiosource.PlayOneShot(_powerupSound);
                 }
             
             }
