@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 633527130}
   - component: {fileID: 633527129}
   - component: {fileID: 1008735856}
-  - component: {fileID: -2915823799293787059}
+  - component: {fileID: 4202764674793951682}
   m_Layer: 0
   m_Name: ShieldPowerUp
   m_TagString: ShieldPowerUp
@@ -75,8 +75,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1971528869
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: e2f5f1638e62545a09c5d6e6d3643101, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -158,9 +158,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84483b836d21da5418009dbc8961dd6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _powerupspeed: 8.5
+  _clip: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}
   powerupID: 2
---- !u!82 &-2915823799293787059
+--- !u!82 &4202764674793951682
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -170,7 +170,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

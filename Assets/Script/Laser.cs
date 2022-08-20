@@ -6,31 +6,29 @@ public class Laser : MonoBehaviour
 {
     //speed variable of 8
     public float speed = 8.5f;
- 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
+    
+   
+    
     // Update is called once per frame
     void Update()
     {
-        
+
+        MoveUp();
+    }
+   
+    void MoveUp()
+    {
         transform.Translate(Vector3.up * speed * Time.deltaTime);
-         
-        if (transform.position.y > 8 )
+
+        if (transform.position.y > 8f)
         {
-            
-            if(transform.parent != null)
+
+            if (transform.parent != null)
             {
                 Destroy(transform.parent.gameObject);
             }
             Destroy(this.gameObject);
         }
-        
-
     }
-   
+
 }

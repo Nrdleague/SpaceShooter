@@ -166,7 +166,22 @@ public class Player : MonoBehaviour
             _shieldVisualizer.SetActive(false);
             return;
         }
-      
+
+        void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.tag == "EnemyLaser")
+            {
+                Player player = GetComponent<Player>();
+                if(player != null)
+                {
+                    //Damage(lives);
+                }
+
+            }
+
+        }
+       
+
         
         if (lives <= 2)
         {
@@ -237,8 +252,8 @@ public class Player : MonoBehaviour
 
     public void AddScore(int points)
     {
-        _uiManager.UpdateScore(_Score); 
         _Score += points;
+        _uiManager.UpdateScore(_Score); 
     }
 
   

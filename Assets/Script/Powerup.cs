@@ -4,22 +4,18 @@ using UnityEngine;
 
 public class Powerup : MonoBehaviour
 {
-    [SerializeField]
-    private float _powerupspeed = 5.5f;
-
     
-    private AudioSource _audiosource;
+    private float _powerupspeed = 3.5f;
+
+    [SerializeField]
+    private AudioClip _clip;
 
     public int powerupID;
-    private AudioClip _powerupSound;
+    
 
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
+  
 
     // Update is called once per frame
     void Update()
@@ -38,14 +34,13 @@ public class Powerup : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-           
+
+            AudioSource.PlayClipAtPoint(_clip, transform.position);
+
             Player player = other.transform.GetComponent<Player>();
             if(player != null)
             {
-               
-               
-
-
+            
                 switch(powerupID)
                 {
                     case 0:
@@ -61,8 +56,6 @@ public class Powerup : MonoBehaviour
                         Debug.Log("normal");
                         break;
 
-                        _audiosource = GetComponent<AudioSource>();
-                        _audiosource.PlayOneShot(_powerupSound);
                 }
             
             }

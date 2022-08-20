@@ -49,8 +49,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69fac7cc3a73c6040b1fa51a75e784eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  _enemyspeed: 4
   _explosionSound: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
+  _enemylaserPrefab: {fileID: 1011849700965782179, guid: c30be2ac35e3ad340ab5e70f679ef8dc, type: 3}
 --- !u!212 &3230254861233275116
 SpriteRenderer:
   m_ObjectHideFlags: 0
