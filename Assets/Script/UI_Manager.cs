@@ -3,48 +3,69 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class UI_Manager : MonoBehaviour
 {
-    // handle to text
     [SerializeField]
     private Text _scoreText;
+    [SerializeField]
+    private Text _gameOverText;
+    [SerializeField]
+    private Text _restartText;
+    [SerializeField]
+    private Text _ammoCountText;
+
     [SerializeField]
     private Image _livesImage;
     [SerializeField]
     private Sprite[] _liveSprites;
-    [SerializeField]
-    private Text _GameOverText;
-    [SerializeField]
-    private Text _RestartText;
+   
 
     private GameManager _gameManager;
+    private int _currentAmmo;
 
-    // Start is called before the first frame update
     void Start()
     {
-
+        _ammoCountText.text = " Ammo  : " + 15;
         _scoreText.text = " Score : " + 0;
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
-
-        if(_gameManager == null)
+       
+        if (_gameManager == null)
         {
             Debug.LogError("Game Manager is null");
         }
 
+        
     }
 
-    // Update is called once per frame
+   
+
+  
+  
+
+
+
     public void UpdateScore(int PlayerScore)
     {
         _scoreText.text = "Score :" + PlayerScore.ToString();
     }
 
-    public void UpdateLives(int CurrentLives)
+    public void UpdateAmmoCount(int PlayerAmmo)
     {
-       
-        _livesImage.sprite = _liveSprites[CurrentLives];
+        _ammoCountText.text = " Ammo: ";
+        PlayerAmmo -= _currentAmmo ;
+    }
+    
 
-        if(CurrentLives == 0)
+
+    public void UpdateLives(int currentLives)
+    {
+        if (currentLives < -1)
+        {
+            _livesImage.sprite = _liveSprites[currentLives];
+        }
+
+        if (currentLives == 0)
         {
             GameOverSequence();
         }
@@ -54,8 +75,8 @@ public class UI_Manager : MonoBehaviour
     {
 
         _gameManager.GameOver();
-        _GameOverText.gameObject.SetActive(true);
-        _RestartText.gameObject.SetActive(true);
+        _gameOverText.gameObject.SetActive(true);
+        _restartText.gameObject.SetActive(true);
         StartCoroutine(GameOverFlickerRoutine());
         
     }
@@ -64,9 +85,9 @@ public class UI_Manager : MonoBehaviour
     {
         while (true)
         {
-            _GameOverText.text = "GAME OVER";
+            _gameOverText.text = "GAME OVER";
             yield return new WaitForSeconds(0.5f);
-            _GameOverText.text = "";
+            _gameOverText.text = "";
             yield return new WaitForSeconds(0.5f);
         }
     }

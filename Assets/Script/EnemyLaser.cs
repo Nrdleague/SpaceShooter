@@ -7,15 +7,12 @@ using UnityEngine.UI;
 public class EnemyLaser : MonoBehaviour
 {
 
-    private float _enmylaserSpeed = 5.5f;
+    private float _enmyLaserSpeed = 4.5f;
     private bool _isEnemylaser = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+   
+   
 
-    // Update is called once per frame
+   
     void Update()
     {
         EnemyLaserMovement();
@@ -23,7 +20,7 @@ public class EnemyLaser : MonoBehaviour
 
     void EnemyLaserMovement()
     {
-        transform.Translate(Vector3.down * _enmylaserSpeed * Time.deltaTime);
+        transform.Translate(Vector3.down * _enmyLaserSpeed * Time.deltaTime);
 
         if (transform.position.y < -8f)
         {

@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _clip: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}
-  powerupID: 2
+  powerUpID: 2
 --- !u!82 &4202764674793951682
 AudioSource:
   m_ObjectHideFlags: 0

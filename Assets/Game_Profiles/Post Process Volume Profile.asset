@@ -18,7 +18,7 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 20
+    value: 5
   threshold:
     overrideState: 1
     value: 1
@@ -87,7 +87,7 @@ MonoBehaviour:
     defaultState: 1
   tonemapper:
     overrideState: 1
-    value: 3
+    value: 0
   toneCurveToeStrength:
     overrideState: 1
     value: 0.283
@@ -127,7 +127,7 @@ MonoBehaviour:
     value: 0
   saturation:
     overrideState: 1
-    value: 0
+    value: -0
   brightness:
     overrideState: 1
     value: 0
@@ -139,7 +139,7 @@ MonoBehaviour:
     value: 0
   mixerRedOutRedIn:
     overrideState: 1
-    value: 100
+    value: 81
   mixerRedOutGreenIn:
     overrideState: 1
     value: 0
@@ -166,13 +166,13 @@ MonoBehaviour:
     value: 100
   lift:
     overrideState: 1
-    value: {x: 1, y: 1, z: 1, w: 0}
+    value: {x: 1, y: 0.99867153, z: 0.9946835, w: 0}
   gamma:
     overrideState: 1
-    value: {x: 1, y: 1, z: 1, w: 0}
+    value: {x: 0.9844998, y: 1, z: 0.99637395, w: 0}
   gain:
     overrideState: 1
-    value: {x: 1, y: 1, z: 1, w: 0}
+    value: {x: 0.98450017, y: 1, z: 0.99637383, w: 0}
   masterCurve:
     overrideState: 1
     value:
