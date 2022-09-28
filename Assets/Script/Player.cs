@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     private float _fireRate = 0.150f;
     private object _uiMannager;
     private float _canFire = -1f;
-    private int lives = 3;
+    private int _lives = 3;
     private float _speedmultiplier = 2.0f;
     [SerializeField]
     private float _thrusterSpeed = 2.0f;
@@ -18,9 +18,8 @@ public class Player : MonoBehaviour
     private int _shieldHealth = 3;
     [SerializeField]
     public int _ammoCount = 15;
-    [SerializeField]
-    private int _currentAmmo;
-     
+   
+   
 
 
     [SerializeField]
@@ -97,7 +96,7 @@ public class Player : MonoBehaviour
         _shieldBehavior = _shield.GetComponent<ShieldHealth>();
 
 
-        _currentAmmo = _ammoCount;
+       
     }
     
 
@@ -108,8 +107,12 @@ public class Player : MonoBehaviour
 
         Thrusters();
 
-        
+      
+
+       
+       
     }
+
 
     
 
@@ -162,13 +165,25 @@ public class Player : MonoBehaviour
 
     void FireLaser()
     {
-        if(_currentAmmo > 0)
+        AmmoCount(-1);
+
+       
+
+
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
-            _uiManager.UpdateAmmoCount(_currentAmmo);
-            _currentAmmo--;
+
+            Instantiate(_laserPrefab, transform.position, Quaternion.identity);
+
+            
         }
 
-        
+        if (_ammoCount == 0)
+        {
+            return;
+        }
+
+
         _canFire = Time.time + _fireRate;
 
         if (_isTripleShotActive == true)
@@ -180,8 +195,14 @@ public class Player : MonoBehaviour
             Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
         }
 
+        
+
+
 
     }
+
+   
+
 
 
     public void SoundEffects()
@@ -226,35 +247,27 @@ public class Player : MonoBehaviour
             
         }
 
-        if (powerUpID[2])
-        {
-            bool stillsActive = _shieldBehavior.DamageShield();
-            _shield.SetActive(stillsActive);
-            _isShieldsActive = stillsActive;
-            return;
-        }
        
 
-
-        if (lives <= 2)
+        if (_lives <= 2)
         {
             
             _rightEngine.SetActive(true);
             
         }
       
-        else if (lives >= 1)
+        else if (_lives >= 1)
         {
            
             _leftEngine.SetActive(true);
         }
        
 
-        lives -= 1;
+        _lives -= 1;
 
-        _uiManager.UpdateLives(lives);
+        _uiManager.UpdateLives(_lives);
          
-        if (lives < 1)
+        if (_lives < 1)
         {
             _spawnManager.OnPlayerDeath();
             Destroy(this.gameObject);
@@ -314,7 +327,11 @@ public class Player : MonoBehaviour
       
     }
 
-  
+    public void AmmoCount(int ammo)
+    {
+        _ammoCount -= ammo;
+        _uiManager.updateAmmoCount(_ammoCount);
+    }
 
     public void AddScore(int points)
     {

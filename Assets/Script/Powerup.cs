@@ -55,21 +55,7 @@ public class Powerup : MonoBehaviour
                         break;
                     case 2:
                         player.ShieldsActive();
-                        if (_isShieldsActive[power])
-                        {
-                            _shieldBehavior.RestoreShield();
-                        }
-                        else
-                        {
-                            ShieldHealth.SetActive(true);
-                        }
-                        break;
-                    // case 3:
-                    // player.ammoRefill();
-                    //   break;
-                    //case 4:
-                    //player.restoreHealth();
-                    //  break;
+                        break;      
                     default:
                         Debug.Log("normal");
                         break;

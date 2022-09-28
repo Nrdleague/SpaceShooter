@@ -232,7 +232,6 @@ MonoBehaviour:
   _thrusterSpeed: 1.5
   _shieldHealth: 100
   _ammoCount: 15
-  _currentAmmo: 0
   _tripleshotPrefab: {fileID: 2984327673600483268, guid: 6298a3a38acd8394e9e9960eb5ba9e9a, type: 3}
   _laserPrefab: {fileID: 6300938615926712040, guid: 53c351ad6f46a554cb0c0964754d32fd, type: 3}
   _shieldVisualizer: {fileID: 480407510}
@@ -1054,7 +1053,7 @@ RectTransform:
   m_GameObject: {fileID: 1024960767}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 0.95581, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1567619847}
@@ -1546,7 +1545,11 @@ MonoBehaviour:
   _restartText: {fileID: 701378818}
   _ammoCountText: {fileID: 1024960768}
   _livesImage: {fileID: 486263414}
-  _liveSprites: []
+  _liveSprites:
+  - {fileID: 21300000, guid: ba53e111f0125654cabfd4eefaf3a657, type: 3}
+  - {fileID: 21300000, guid: 80fba5ece7697c44eacc036539c1b552, type: 3}
+  - {fileID: 21300000, guid: 482c8e4c0346b704aa5f1760c3c989d5, type: 3}
+  - {fileID: 21300000, guid: 9fe6f40efddf0b64fb68a3382b14a4db, type: 3}
 --- !u!114 &1567619844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1825,15 +1828,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyPrefab: {fileID: 3896913971099706123, guid: 2a8725c6e0f3e904dba2e2147eba8a54, type: 3}
   _enemyContainer: {fileID: 1861755762}
-  _tripleShotPowerUpPrefab: {fileID: 7780360386535816471, guid: c1d79af82f0d76342adf54688a1c5df5, type: 3}
+  _tripleShotPowerUp: {fileID: 7780360386535816471, guid: c1d79af82f0d76342adf54688a1c5df5, type: 3}
   _speedPowerup: {fileID: 1200582138870670259, guid: 5ea9352af8d3163488207170b960c0d7, type: 3}
   _shieldPowerUp: {fileID: 1200582138870670259, guid: 5ea9352af8d3163488207170b960c0d7, type: 3}
   powerUps:
   - {fileID: 7780360386535816471, guid: c1d79af82f0d76342adf54688a1c5df5, type: 3}
   - {fileID: 8272491583422139597, guid: f53adf92c8cae064c927c1b17d6f89b3, type: 3}
   - {fileID: 1200582138870670259, guid: 5ea9352af8d3163488207170b960c0d7, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!1 &1861755762
 GameObject:
   m_ObjectHideFlags: 0
