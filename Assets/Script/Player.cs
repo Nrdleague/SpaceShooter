@@ -14,11 +14,11 @@ public class Player : MonoBehaviour
     private float _speedmultiplier = 2.0f;
     [SerializeField]
     private float _thrusterSpeed = 2.0f;
-    [SerializeField]
-    private int _shieldHealth = 3;
-    [SerializeField]
-    public int _ammoCount = 15;
-   
+    
+    
+    
+    public int _ammoAmount = 15;
+    public int _currentAmmo;
    
 
 
@@ -58,9 +58,11 @@ public class Player : MonoBehaviour
 
     private bool _isThrusterActive = false;
 
-    private bool _refillAmmo = false;
+    private bool _hasAmmo = true;
 
-    private bool _outOfAmmo = false;
+    //private bool _refillAmmo = false;
+
+    // private bool _outOfAmmo = false;
 
 
     [SerializeField]
@@ -95,7 +97,7 @@ public class Player : MonoBehaviour
 
         _shieldBehavior = _shield.GetComponent<ShieldHealth>();
 
-
+        _currentAmmo = _ammoAmount;
        
     }
     
@@ -107,10 +109,22 @@ public class Player : MonoBehaviour
 
         Thrusters();
 
-      
+       
+
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
+        {
+            if(_hasAmmo == true)
+            {
+                FireLaser();
+            }
+            
+
+            
+           
+        }
 
        
-       
+
     }
 
 
@@ -165,23 +179,7 @@ public class Player : MonoBehaviour
 
     void FireLaser()
     {
-        AmmoCount(-1);
-
        
-
-
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
-        {
-
-            Instantiate(_laserPrefab, transform.position, Quaternion.identity);
-
-            
-        }
-
-        if (_ammoCount == 0)
-        {
-            return;
-        }
 
 
         _canFire = Time.time + _fireRate;
@@ -195,13 +193,18 @@ public class Player : MonoBehaviour
             Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
         }
 
-        
+        _currentAmmo--;
+
+        if (_currentAmmo <= 0)
+        {
+            _hasAmmo = false;
+        }
 
 
 
     }
 
-   
+    
 
 
 
@@ -327,11 +330,6 @@ public class Player : MonoBehaviour
       
     }
 
-    public void AmmoCount(int ammo)
-    {
-        _ammoCount -= ammo;
-        _uiManager.updateAmmoCount(_ammoCount);
-    }
 
     public void AddScore(int points)
     {
