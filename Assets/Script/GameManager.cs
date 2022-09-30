@@ -12,16 +12,16 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R) &&  _isGameOver == true)
         {
-            //current game scene
+           
             SceneManager.LoadScene(1);
         }
 
-        //if escape key is pressed
+      
         if (Input.GetKey(KeyCode.Escape))
         {
             Application.Quit();
         }
-        //quit the game
+       
     }
 
     public void GameOver()

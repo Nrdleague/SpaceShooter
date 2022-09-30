@@ -13,6 +13,8 @@ TagManager:
   - LaserBeam
   - EnemyLaser
   - Asteroid
+  - Thruster
+  - Ammo Count
   layers:
   - Default
   - TransparentFX

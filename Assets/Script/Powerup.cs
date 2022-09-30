@@ -4,31 +4,35 @@ using UnityEngine;
 
 public class Powerup : MonoBehaviour
 {
-    
-    private float _powerupspeed = 3.5f;
+
+    private float _powerUpSpeed = 3.5f;
 
     [SerializeField]
     private AudioClip _clip;
 
-    public int powerupID;
-    
+    public int powerUpID;
 
 
 
-  
+
+
 
     // Update is called once per frame
     void Update()
     {
-        
-        transform.Translate(Vector3.down * _powerupspeed * Time.deltaTime);
-       
+
+        transform.Translate(Vector3.down * _powerUpSpeed * Time.deltaTime);
+
         if (transform.position.y < -4.5f)
         {
             Destroy(this.gameObject);
         }
 
     }
+
+    
+
+
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -38,10 +42,10 @@ public class Powerup : MonoBehaviour
             AudioSource.PlayClipAtPoint(_clip, transform.position);
 
             Player player = other.transform.GetComponent<Player>();
-            if(player != null)
+            if (player != null)
             {
-            
-                switch(powerupID)
+
+                switch (powerUpID)
                 {
                     case 0:
                         player.TripleShotActive();
@@ -51,17 +55,21 @@ public class Powerup : MonoBehaviour
                         break;
                     case 2:
                         player.ShieldsActive();
-                        break;
+                        break;      
                     default:
                         Debug.Log("normal");
                         break;
 
                 }
-            
+
             }
             Destroy(this.gameObject);
         }
     }
+
+   
+
+
 
     
 

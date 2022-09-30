@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _clip: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}
-  powerupID: 0
+  powerUpID: 0
 --- !u!58 &1057946495
 CircleCollider2D:
   m_ObjectHideFlags: 0

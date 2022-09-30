@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
-    //speed variable of 8
+
     public float speed = 8.5f;
     
    
     
-    // Update is called once per frame
+   
     void Update()
     {
 
