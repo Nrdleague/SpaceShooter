@@ -14,13 +14,16 @@ public class Player : MonoBehaviour
     private float _speedmultiplier = 2.0f;
     [SerializeField]
     private float _thrusterSpeed = 2.0f;
-    
+    [SerializeField]
+    private int _shieldHealth = 3;
+    [SerializeField]
+    private int _currentShieldStrength;
     
     
     public int _ammoAmount = 15;
     public int _currentAmmo;
-   
 
+   
 
     [SerializeField]
     private GameObject _tripleshotPrefab;
@@ -36,7 +39,7 @@ public class Player : MonoBehaviour
     private GameObject _thruster;
     [SerializeField]
     private GameObject _shield;
-    private ShieldHealth _shieldBehavior;
+    
    
     
 
@@ -60,9 +63,11 @@ public class Player : MonoBehaviour
 
     private bool _hasAmmo = true;
 
-    //private bool _refillAmmo = false;
+    
 
-    // private bool _outOfAmmo = false;
+    
+
+    
 
 
     [SerializeField]
@@ -74,8 +79,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private SpawnManager _spawnManager;
 
-
-
+    private Renderer _shieldRenderer;
+   
+  
 
 
 
@@ -84,6 +90,10 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(0, -2 , 0);
         _spawnManager = GameObject.Find ("Spawn_Manager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UI_Manager>();
+       
+        _shieldRenderer = _shield.GetComponent<Renderer>();
+        if (_shieldRenderer != null)
+            Debug.LogError("The renderer is NULL");
 
         if (_spawnManager == null)
         {
@@ -95,7 +105,7 @@ public class Player : MonoBehaviour
             Debug.LogError("the UI manager is null");
         }
 
-        _shieldBehavior = _shield.GetComponent<ShieldHealth>();
+       
 
         _currentAmmo = _ammoAmount;
        
@@ -230,7 +240,29 @@ public class Player : MonoBehaviour
 
     }
 
-   
+
+    private void ShieldDisplayStrength()
+    {
+        switch (_currentShieldStrength)
+        {
+            case 1:
+                _shieldRenderer.material.color = new Color(1, 1, 1, .25f );
+                break;
+            case 2:
+                _shieldRenderer.material.color = new Color(1, 1, 1, .50f);
+                break;
+            case 3:
+                _shieldRenderer.material.color = new Color(1, 1, 1);
+                break;
+              
+
+        }
+
+
+    }
+
+
+
 
 
 
@@ -239,13 +271,22 @@ public class Player : MonoBehaviour
     {
        
 
-        if (_isShieldsActive == true)
+        if (_isShieldsActive)
         {
-            _isShieldsActive = false;
-            
-            _shieldVisualizer.SetActive(false);
-                                    
-            return;
+            if(_currentShieldStrength > 0)
+            {
+
+                _currentShieldStrength--;
+
+                return;
+            }
+            else
+            {
+                _isShieldsActive = false;
+                _shield.SetActive(false);
+                ShieldDisplayStrength();
+                return;
+            }
 
             
         }
@@ -324,10 +365,21 @@ public class Player : MonoBehaviour
     
     public void ShieldsActive()
     {
-       
-        _isShieldsActive = true;
-        _shieldVisualizer.SetActive(true);
-      
+        if(_currentShieldStrength == _shieldHealth)
+        {
+            return;
+        }
+        else
+        {
+            _isShieldsActive = true;
+            _shieldVisualizer.SetActive(true);
+            _currentShieldStrength++;
+            ShieldDisplayStrength();
+
+        }
+          
+        
+        
     }
 
 

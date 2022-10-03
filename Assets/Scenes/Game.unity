@@ -230,8 +230,10 @@ MonoBehaviour:
   speed: 3.5
   _fireRate: 0.15
   _thrusterSpeed: 1.5
+  _shieldHealth: 3
   _ammoAmount: 15
   _currentAmmo: 0
+  _shieldDamage: 0
   _tripleshotPrefab: {fileID: 2984327673600483268, guid: 6298a3a38acd8394e9e9960eb5ba9e9a, type: 3}
   _laserPrefab: {fileID: 6300938615926712040, guid: 53c351ad6f46a554cb0c0964754d32fd, type: 3}
   _shieldVisualizer: {fileID: 480407510}
@@ -244,6 +246,7 @@ MonoBehaviour:
   _outOfAmmoSound: {fileID: 0}
   _Score: 0
   _spawnManager: {fileID: 1792790957}
+  _spriteRenderer: {fileID: 480407512}
 --- !u!61 &204642183
 BoxCollider2D:
   m_ObjectHideFlags: 0
