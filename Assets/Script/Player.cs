@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -6,48 +7,70 @@ public class Player : MonoBehaviour
     
     
     public float speed = 3.5f;
+
     [SerializeField]
     private float _fireRate = 0.150f;
+
     private object _uiMannager;
+
     private float _canFire = -1f;
+
     private int _lives = 3;
+
     private float _speedmultiplier = 2.0f;
+
     [SerializeField]
     private float _thrusterSpeed = 2.0f;
+
     [SerializeField]
     private int _shieldHealth = 3;
+
     [SerializeField]
     private int _currentShieldStrength;
     
-    
     public int _ammoAmount = 15;
+
     public int _currentAmmo;
+
+    
+
 
    
 
     [SerializeField]
     private GameObject _tripleshotPrefab;
+
     [SerializeField]
     private GameObject _laserPrefab; 
+
     [SerializeField]
     private GameObject _shieldVisualizer;
+
     [SerializeField]
     private GameObject _rightEngine;
+
     [SerializeField]
     private GameObject _leftEngine;
+
     [SerializeField]
     private GameObject _thruster;
+
     [SerializeField]
     private GameObject _shield;
+
     
+   
    
     
 
     [SerializeField]
     private AudioClip _laserShot;
+
     private AudioSource _audioSource;
+
     [SerializeField]
     private AudioClip _explosionSound;
+
     [SerializeField]
     private AudioClip _outOfAmmoSound;
 
@@ -63,11 +86,17 @@ public class Player : MonoBehaviour
 
     private bool _hasAmmo = true;
 
-    
+    private bool _refillAmmo = false;
 
-    
+    private int _noAmmo;
 
-    
+
+
+
+
+
+
+
 
 
     [SerializeField]
@@ -75,7 +104,8 @@ public class Player : MonoBehaviour
 
 
 
-    private UI_Manager _uiManager;
+    public UI_Manager _uiManager;
+
     [SerializeField]
     private SpawnManager _spawnManager;
 
@@ -88,10 +118,11 @@ public class Player : MonoBehaviour
     void Start()
     {
         transform.position = new Vector3(0, -2 , 0);
+
         _spawnManager = GameObject.Find ("Spawn_Manager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UI_Manager>();
-       
         _shieldRenderer = _shield.GetComponent<Renderer>();
+
         if (_shieldRenderer != null)
             Debug.LogError("The renderer is NULL");
 
@@ -108,10 +139,10 @@ public class Player : MonoBehaviour
        
 
         _currentAmmo = _ammoAmount;
-       
+        
     }
     
-
+   
    
     void Update()
     {
@@ -127,13 +158,7 @@ public class Player : MonoBehaviour
             {
                 FireLaser();
             }
-            
-
-            
-           
         }
-
-       
 
     }
 
@@ -210,8 +235,6 @@ public class Player : MonoBehaviour
             _hasAmmo = false;
         }
 
-
-
     }
 
     
@@ -257,12 +280,10 @@ public class Player : MonoBehaviour
               
 
         }
-
-
     }
 
-
-
+   
+  
 
 
 
@@ -377,9 +398,6 @@ public class Player : MonoBehaviour
             ShieldDisplayStrength();
 
         }
-          
-        
-        
     }
 
 
@@ -389,7 +407,16 @@ public class Player : MonoBehaviour
         _uiManager.UpdateScore(_Score); 
     }
 
-   
+    public void RefillAmmo()
+    {
+        _currentAmmo = _ammoAmount;
+        _hasAmmo = true;
+        // when ammo refill collected
+        // restore player ammo
 
-  
+    }
+
+    
+
+   
 }

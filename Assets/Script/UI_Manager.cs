@@ -50,6 +50,10 @@ public class UI_Manager : MonoBehaviour
         {
             _ammoCountText.color = Color.red;
         }
+        else
+        {
+            _ammoCountText.color = Color.green;
+        }
     }
   
   
