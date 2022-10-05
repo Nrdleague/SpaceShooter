@@ -231,9 +231,9 @@ MonoBehaviour:
   _fireRate: 0.15
   _thrusterSpeed: 1.5
   _shieldHealth: 3
+  _currentShieldStrength: 0
   _ammoAmount: 15
   _currentAmmo: 0
-  _shieldDamage: 0
   _tripleshotPrefab: {fileID: 2984327673600483268, guid: 6298a3a38acd8394e9e9960eb5ba9e9a, type: 3}
   _laserPrefab: {fileID: 6300938615926712040, guid: 53c351ad6f46a554cb0c0964754d32fd, type: 3}
   _shieldVisualizer: {fileID: 480407510}
@@ -245,8 +245,8 @@ MonoBehaviour:
   _explosionSound: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
   _outOfAmmoSound: {fileID: 0}
   _Score: 0
+  _uiManager: {fileID: 0}
   _spawnManager: {fileID: 1792790957}
-  _spriteRenderer: {fileID: 480407512}
 --- !u!61 &204642183
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1170,7 +1170,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1155367528}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -2.2229576, y: 1.7885393, z: -0.043857712}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1838,6 +1838,7 @@ MonoBehaviour:
   - {fileID: 7780360386535816471, guid: c1d79af82f0d76342adf54688a1c5df5, type: 3}
   - {fileID: 8272491583422139597, guid: f53adf92c8cae064c927c1b17d6f89b3, type: 3}
   - {fileID: 1200582138870670259, guid: 5ea9352af8d3163488207170b960c0d7, type: 3}
+  - {fileID: 4677708105301658263, guid: 7b529c9138b58ef418abe49149acc930, type: 3}
 --- !u!1 &1861755762
 GameObject:
   m_ObjectHideFlags: 0

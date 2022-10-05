@@ -15,6 +15,7 @@ TagManager:
   - Asteroid
   - Thruster
   - Ammo Count
+  - Ammo_PowerUp
   layers:
   - Default
   - TransparentFX
