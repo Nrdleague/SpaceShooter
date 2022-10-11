@@ -11,8 +11,6 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _fireRate = 0.150f;
 
-    private object _uiMannager;
-
     private float _canFire = -1f;
 
     private int _lives = 3;
@@ -32,6 +30,7 @@ public class Player : MonoBehaviour
 
     public int _currentAmmo;
 
+    
     
 
 
@@ -88,8 +87,9 @@ public class Player : MonoBehaviour
 
     private bool _refillAmmo = false;
 
-    private int _noAmmo;
+    private bool _noAmmo = false;
 
+    private bool _refillHealth = true;
 
 
 
@@ -102,7 +102,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int _Score;
 
-
+    private object _uiMannager;
 
     public UI_Manager _uiManager;
 
@@ -123,8 +123,6 @@ public class Player : MonoBehaviour
         _uiManager = GameObject.Find("Canvas").GetComponent<UI_Manager>();
         _shieldRenderer = _shield.GetComponent<Renderer>();
 
-        if (_shieldRenderer != null)
-            Debug.LogError("The renderer is NULL");
 
         if (_spawnManager == null)
         {
@@ -338,12 +336,32 @@ public class Player : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-       
+        switch (_lives)
+        {
+            case 2:
+                _rightEngine.SetActive(true);
+                break;
+            case 1:
+                _leftEngine.SetActive(true);
+                break;
+            default:
+                break;
+        }
         
 
     }
 
-   
+   public void Health()
+   {
+        _lives++;
+        if (_lives <= 3)
+        {
+            _lives = 3;
+        }
+        _uiManager.UpdateLives(_lives);
+
+
+   }
 
     IEnumerator ThrusterCoolDownRoutine()
     {
@@ -416,7 +434,27 @@ public class Player : MonoBehaviour
 
     }
 
-    
+    public void HealthRefill()
+    {
+        _lives++;
+        _uiManager.UpdateLives(_lives);
+
+
+
+        switch (_lives)
+        {
+            case 3:
+                _rightEngine.SetActive(false);
+                _rightEngine.SetActive(false);
+                break;
+            case 2:
+                _leftEngine.SetActive(false);
+                _leftEngine.SetActive(false);
+                break;
+            default:
+                break;
+        }
+    }
 
    
 }

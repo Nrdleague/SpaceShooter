@@ -74,6 +74,11 @@ public class UI_Manager : MonoBehaviour
         {
             _livesImage.sprite = _liveSprites[currentLives];
         }
+        if(currentLives > -1) 
+        {
+            _livesImage.sprite = _liveSprites[currentLives];
+        }
+
 
         if (currentLives == 0)
         {

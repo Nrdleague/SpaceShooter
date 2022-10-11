@@ -16,6 +16,7 @@ TagManager:
   - Thruster
   - Ammo Count
   - Ammo_PowerUp
+  - health_PowerUp
   layers:
   - Default
   - TransparentFX
