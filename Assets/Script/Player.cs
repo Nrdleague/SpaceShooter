@@ -30,7 +30,9 @@ public class Player : MonoBehaviour
 
     public int _currentAmmo;
 
-    
+    private float _shakeDuration = .1f;
+
+    private float _shakeMag = .25f;
     
 
 
@@ -57,7 +59,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _shield;
 
-    
+    private CameraShake _cameraShake;
    
    
     
@@ -122,7 +124,7 @@ public class Player : MonoBehaviour
         _spawnManager = GameObject.Find ("Spawn_Manager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UI_Manager>();
         _shieldRenderer = _shield.GetComponent<Renderer>();
-
+        _cameraShake = GameObject.Find("Main Camera").GetComponent<CameraShake>();
 
         if (_spawnManager == null)
         {
@@ -135,9 +137,16 @@ public class Player : MonoBehaviour
         }
 
        
-
         _currentAmmo = _ammoAmount;
+
         
+        if(_cameraShake != null)
+        {
+            Debug.LogError("The camerashake on player is null");
+        }
+
+
+
     }
     
    
@@ -289,7 +298,6 @@ public class Player : MonoBehaviour
     public void Damage()
     {
        
-
         if (_isShieldsActive)
         {
             if(_currentShieldStrength > 0)
@@ -311,6 +319,7 @@ public class Player : MonoBehaviour
         }
 
        
+      
 
         if (_lives <= 2)
         {
@@ -324,7 +333,8 @@ public class Player : MonoBehaviour
            
             _leftEngine.SetActive(true);
         }
-       
+
+        StartCoroutine(_cameraShake.ShakeCamera(_shakeDuration, _shakeMag));
 
         _lives -= 1;
 
