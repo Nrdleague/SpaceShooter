@@ -1,14 +1,14 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    
-    
-    public float speed = 3.5f;
 
-    [SerializeField]
+
+    public float _speed = 3.5f;
+
     private float _fireRate = 0.150f;
 
     private float _canFire = -1f;
@@ -17,7 +17,6 @@ public class Player : MonoBehaviour
 
     private float _speedmultiplier = 2.0f;
 
-    [SerializeField]
     private float _thrusterSpeed = 2.0f;
 
     [SerializeField]
@@ -25,7 +24,7 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private int _currentShieldStrength;
-    
+
     public int _ammoAmount = 15;
 
     public int _currentAmmo;
@@ -33,16 +32,21 @@ public class Player : MonoBehaviour
     private float _shakeDuration = .1f;
 
     private float _shakeMag = .25f;
-    
+
+    public float _playerSpeed;
+
+    private float _thrusterRemaining = 100;
+
+    private float _speedBoostAmount; 
 
 
-   
+
 
     [SerializeField]
     private GameObject _tripleshotPrefab;
 
     [SerializeField]
-    private GameObject _laserPrefab; 
+    private GameObject _laserPrefab;
 
     [SerializeField]
     private GameObject _shieldVisualizer;
@@ -54,33 +58,32 @@ public class Player : MonoBehaviour
     private GameObject _leftEngine;
 
     [SerializeField]
-    private GameObject _thruster;
+    private GameObject thrusters;
 
-    [SerializeField]
     private GameObject _shield;
 
     private CameraShake _cameraShake;
-   
-   
-    
 
-    [SerializeField]
+
+
+
+    
     private AudioClip _laserShot;
 
     private AudioSource _audioSource;
 
-    [SerializeField]
+    
     private AudioClip _explosionSound;
 
-    [SerializeField]
+    
     private AudioClip _outOfAmmoSound;
 
-   
-    
+
+
     private bool _isTripleShotActive = false;
-   
+
     private bool _isShieldsActive = false;
-    
+
     private bool _isSpeedBoostActive = false;
 
     private bool _isThrusterActive = false;
@@ -93,38 +96,43 @@ public class Player : MonoBehaviour
 
     private bool _refillHealth = true;
 
-
-
-
-
-
-
+    private bool _thrusterBoostActive = true;
 
 
     [SerializeField]
+    private Image _thrusterBarImage;
+
+
+
+
+
+
+
+    
     private int _Score;
 
     private object _uiMannager;
 
     public UI_Manager _uiManager;
 
-    [SerializeField]
+    
     private SpawnManager _spawnManager;
 
     private Renderer _shieldRenderer;
-   
-  
 
+    private Thruster _thruster;
 
 
     void Start()
     {
-        transform.position = new Vector3(0, -2 , 0);
+        transform.position = new Vector3(0, -2, 0);
 
-        _spawnManager = GameObject.Find ("Spawn_Manager").GetComponent<SpawnManager>();
+        _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UI_Manager>();
         _shieldRenderer = _shield.GetComponent<Renderer>();
         _cameraShake = GameObject.Find("Main Camera").GetComponent<CameraShake>();
+        _thruster = GameObject.Find("Thruster").GetComponent<Thruster>();
+
 
         if (_spawnManager == null)
         {
@@ -136,11 +144,11 @@ public class Player : MonoBehaviour
             Debug.LogError("the UI manager is null");
         }
 
-       
+
         _currentAmmo = _ammoAmount;
 
-        
-        if(_cameraShake != null)
+
+        if (_cameraShake != null)
         {
             Debug.LogError("The camerashake on player is null");
         }
@@ -148,20 +156,20 @@ public class Player : MonoBehaviour
 
 
     }
-    
-   
-   
+
+
+
     void Update()
     {
         CalculateMovement();
 
         Thrusters();
 
-       
+
 
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
-            if(_hasAmmo == true)
+            if (_hasAmmo == true)
             {
                 FireLaser();
             }
@@ -170,7 +178,7 @@ public class Player : MonoBehaviour
     }
 
 
-    
+
 
     void CalculateMovement()
     {
@@ -179,11 +187,11 @@ public class Player : MonoBehaviour
 
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
 
-        transform.Translate(direction * speed * Time.deltaTime);
+        transform.Translate(direction * _speed * Time.deltaTime);
 
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.8f, 0));
 
-        if (transform.position.x > 11 )
+        if (transform.position.x > 11)
         {
             transform.position = new Vector3(-11, transform.position.y, 0);
         }
@@ -193,31 +201,68 @@ public class Player : MonoBehaviour
         }
     }
 
-
+   
 
 
     void Thrusters()
     {
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
+            _thrusterBoostActive = true;
             _isThrusterActive = true;
-            speed *= _thrusterSpeed;
+            _speed *= _thrusterSpeed;
+            
+
 
         }
 
-        if(Input.GetKeyUp(KeyCode.LeftShift))
+        if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             _isThrusterActive = false;
+            _speed /= _thrusterSpeed;
+            _thrusterBoostActive = false;
 
-            speed /= _thrusterSpeed;
         }
-       
-       
+
+
+
+    }
+
+    private void ThrusterDrain()
+    {
+        if (_isThrusterActive == true && _thrusterRemaining >= 0)
+        {
+            _thrusterRemaining -= Time.deltaTime * 50;
+        }
+
+        ChangeThruster(_thrusterRemaining);
+    }
+
+    private void ThrusterRecharge()
+    {
+        if (_isThrusterActive == false && _thrusterRemaining <= 100)
+        {
+            _thrusterRemaining += Time.deltaTime * 20;
+        }
+    }
+
+    private void BoosterExhausted()
+    {
+        if (_thrusterRemaining < 5)
+        {
+            _isThrusterActive = false;
+            _thrusterBoostActive = false;
+        }
     }
 
 
+    private void ChangeThruster(float value)
+    {
+        _thrusterBarImage.fillAmount = value / 100;
+    }
 
 
+   
 
     void FireLaser()
     {
@@ -361,6 +406,9 @@ public class Player : MonoBehaviour
 
     }
 
+  
+
+
    public void Health()
    {
         _lives++;
@@ -401,7 +449,7 @@ public class Player : MonoBehaviour
     public void SpeedBoostActive()
     {
         _isSpeedBoostActive = true;
-        speed *= _speedmultiplier; 
+        _speed *= _speedmultiplier; 
         StartCoroutine(SpeedBoostPowerDownRoutine());
     }
 
@@ -409,7 +457,7 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5.0f);
         _isSpeedBoostActive = false;
-        speed /= _speedmultiplier;
+        _speed /= _speedmultiplier;
     }
     
     public void ShieldsActive()
@@ -428,7 +476,7 @@ public class Player : MonoBehaviour
         }
     }
 
-
+   
     public void AddScore(int points)
     {
         _Score += points;
@@ -439,8 +487,7 @@ public class Player : MonoBehaviour
     {
         _currentAmmo = _ammoAmount;
         _hasAmmo = true;
-        // when ammo refill collected
-        // restore player ammo
+        
 
     }
 

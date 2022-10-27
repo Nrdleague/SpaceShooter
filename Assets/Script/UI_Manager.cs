@@ -19,6 +19,10 @@ public class UI_Manager : MonoBehaviour
     private Image _livesImage;
     [SerializeField]
     private Sprite[] _liveSprites;
+   
+    [SerializeField]
+    private Slider _fuelGauge;
+    
 
 
     
@@ -64,7 +68,12 @@ public class UI_Manager : MonoBehaviour
         _scoreText.text = " Score : " + playerScore.ToString();
     }
 
+    public void UpdateThrusterFuelGauge(float fuel)
+    {
+        _fuelGauge.value = fuel;
+    }
 
+   
 
     
 
