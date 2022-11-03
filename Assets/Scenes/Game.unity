@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -137,7 +137,6 @@ GameObject:
   - component: {fileID: 204642184}
   - component: {fileID: 204642183}
   - component: {fileID: 204642185}
-  - component: {fileID: 204642186}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -239,8 +238,9 @@ MonoBehaviour:
   _shieldVisualizer: {fileID: 480407510}
   _rightEngine: {fileID: 1350482844}
   _leftEngine: {fileID: 381608958}
-  thrusters: {fileID: 0}
-  _thrusterBarImage: {fileID: 0}
+  thrusters: {fileID: 2070946751}
+  _shield: {fileID: 480407510}
+  _thrusterBarImage: {fileID: 704315967}
   _uiManager: {fileID: 1567619843}
 --- !u!61 &204642183
 BoxCollider2D:
@@ -385,25 +385,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &204642186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 204642179}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 656433f3a0124854cb53aaa3a78a9068, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _thrusterMeterBar: {fileID: 0}
-  _currentBoost: 0
-  _boostLeft: 0
-  _maxBoost: 0
-  _sprinting: 0
-  _boostDrainRate: 0.2
-  _speed: 0
 --- !u!1 &217906620
 GameObject:
   m_ObjectHideFlags: 0
@@ -414,7 +395,6 @@ GameObject:
   m_Component:
   - component: {fileID: 217906621}
   - component: {fileID: 217906624}
-  - component: {fileID: 217906625}
   m_Layer: 0
   m_Name: Thruster_Bar
   m_TagString: Untagged
@@ -451,32 +431,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 217906620}
   m_CullTransparentMesh: 1
---- !u!114 &217906625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 217906620}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35e94b6038e6f7746b240310bbe0577e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 3.5
-  _shieldHealth: 3
-  _currentShieldStrength: 0
-  _ammoAmount: 15
-  _currentAmmo: 0
-  _playerSpeed: 0
-  _tripleshotPrefab: {fileID: 2984327673600483268, guid: 6298a3a38acd8394e9e9960eb5ba9e9a, type: 3}
-  _laserPrefab: {fileID: 6300938615926712040, guid: 53c351ad6f46a554cb0c0964754d32fd, type: 3}
-  _shieldVisualizer: {fileID: 0}
-  _rightEngine: {fileID: 0}
-  _leftEngine: {fileID: 0}
-  thrusters: {fileID: 0}
-  _thrusterBarImage: {fileID: 0}
-  _uiManager: {fileID: 0}
 --- !u!1 &293786683
 GameObject:
   m_ObjectHideFlags: 0
@@ -1099,17 +1053,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 704315965}
-  m_LocalRotation: {x: -0, y: -0, z: 0.708928, w: 0.7052809}
-  m_LocalPosition: {x: 0, y: 0, z: 0.19285113}
-  m_LocalScale: {x: 1.9999572, y: 1.1111242, z: 1.0800002}
+  m_LocalRotation: {x: -0, y: -0, z: 0.99999154, w: -0.004114896}
+  m_LocalPosition: {x: 0, y: 0, z: 0.19285122}
+  m_LocalScale: {x: 1, y: 0.5, z: 1.0800002}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 217906621}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180.472}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -209.4542, y: 22.055805}
+  m_AnchoredPosition: {x: -2, y: 9}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &704315967
@@ -1132,11 +1086,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 92132df96e3f3594fa16678258b422b1, type: 3}
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0

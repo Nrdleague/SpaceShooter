@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private GameObject thrusters;
-
+    [SerializeField]
     private GameObject _shield;
 
     private CameraShake _cameraShake;
@@ -120,7 +120,7 @@ public class Player : MonoBehaviour
 
     private Renderer _shieldRenderer;
 
-    private Thruster _thruster;
+   
 
 
     void Start()
@@ -131,7 +131,7 @@ public class Player : MonoBehaviour
         _uiManager = GameObject.Find("Canvas").GetComponent<UI_Manager>();
         _shieldRenderer = _shield.GetComponent<Renderer>();
         _cameraShake = GameObject.Find("Main Camera").GetComponent<CameraShake>();
-        _thruster = GameObject.Find("Thruster").GetComponent<Thruster>();
+        
 
 
         if (_spawnManager == null)
@@ -148,7 +148,7 @@ public class Player : MonoBehaviour
         _currentAmmo = _ammoAmount;
 
 
-        if (_cameraShake != null)
+        if (_cameraShake == null)
         {
             Debug.LogError("The camerashake on player is null");
         }
