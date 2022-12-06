@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,17 +16,14 @@ public class UI_Manager : MonoBehaviour
     private Text _restartText;
     [SerializeField]
     private Text _ammoCountText;
-
     [SerializeField]
     private Image _livesImage;
     [SerializeField]
     private Sprite[] _liveSprites;
-   
-    [SerializeField]
-    private Slider _fuelGauge;
+    
     
 
-
+  
     
     private GameManager _gameManager;
     private Player _player;
@@ -36,7 +35,7 @@ public class UI_Manager : MonoBehaviour
         _scoreText.text = " Score : " + 0;
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         _player = GameObject.Find("Player").GetComponent<Player>();
-       
+        
         if (_gameManager == null)
         {
             Debug.LogError("Game Manager is null");
@@ -46,21 +45,6 @@ public class UI_Manager : MonoBehaviour
     }
 
    
-    private void Update()
-    {
-        _ammoCountText.text = " Ammo : " + _player._currentAmmo;
-
-        if (_player._currentAmmo <= 0)
-        {
-            _ammoCountText.color = Color.red;
-        }
-        else
-        {
-            _ammoCountText.color = Color.green;
-        }
-    }
-  
-  
 
 
     public void UpdateScore(int playerScore)
@@ -68,11 +52,7 @@ public class UI_Manager : MonoBehaviour
         _scoreText.text = " Score : " + playerScore.ToString();
     }
 
-    public void UpdateThrusterFuelGauge(float fuel)
-    {
-        _fuelGauge.value = fuel;
-    }
-
+    
    
 
     
@@ -83,12 +63,7 @@ public class UI_Manager : MonoBehaviour
         {
             _livesImage.sprite = _liveSprites[currentLives];
         }
-        if(currentLives > -1) 
-        {
-            _livesImage.sprite = _liveSprites[currentLives];
-        }
-
-
+        
         if (currentLives == 0)
         {
             GameOverSequence();
