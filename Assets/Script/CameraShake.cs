@@ -1,38 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class CameraShake : MonoBehaviour
 {
-    private Vector3 originalPos;
+    private bool _isShaking = false;
+    private float _duration = 0.5f;
+    private float _magnitude = 0.5f;
 
-    private void Start()
+    public IEnumerator CameraShakeRoutine()
     {
-        originalPos = this.transform.position;
-    }
+        Vector3 defualtPosition = transform.position;
+        float elapsed = 0f;
 
-    public IEnumerator ShakeCamera(float duration, float magnitude)
-    {
-        
-
-        float elaspedTime = 0f;
-        
-        while(elaspedTime < duration)
+        while(elapsed < _duration)
         {
-            float xOffset = Random.Range(-0.5f, 0.5f) * magnitude;
-            float yOffset = Random.Range(-0.5f, 0.5f) * magnitude;
 
-            transform.localPosition = new Vector3(yOffset, xOffset, originalPos.z);    
-
-            elaspedTime += Time.deltaTime;
-
-            yield return null;  
-
-
+            float xPosition = Random.Range(-0.5f, 0.5f) * _magnitude;
+            float yPosition = Random.Range(-0.5f, 0.5f) * _magnitude;
+            transform.position = new Vector3(xPosition, yPosition, -10f);
+            elapsed += Time.deltaTime;
+            yield return null;
         }
-        Debug.LogError("Camera did not return to original position");
-        transform.localPosition = originalPos;  
+        transform.position = defualtPosition;
     }
+
+    public void startShaking()
+    {
+        StartCoroutine(CameraShakeRoutine());   
+    }
+
 
 
 }

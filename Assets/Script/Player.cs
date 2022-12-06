@@ -1,13 +1,24 @@
 using System;
 using System.Collections;
+using System.Net.Http.Headers;
+using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
 
+    [SerializeField]
+    private int _shieldHealth = 3;
 
-    public float _speed = 3.5f;
+    [SerializeField]
+    private float _speed = 3.5f;
+
+    [SerializeField]
+    private int _currentShieldStrength;
+
+    public float _playerSpeed = 3.5f;
 
     private float _fireRate = 0.150f;
 
@@ -17,31 +28,20 @@ public class Player : MonoBehaviour
 
     private float _speedmultiplier = 2.0f;
 
-    private float _thrusterSpeed = 2.0f;
+    private int _ammoAmount = 0;
 
-    [SerializeField]
-    private int _shieldHealth = 3;
-
-    [SerializeField]
-    private int _currentShieldStrength;
-
-    public int _ammoAmount = 15;
-
-    public int _currentAmmo;
+    public int _maxAmmoCount = 15;
 
     private float _shakeDuration = .1f;
 
     private float _shakeMag = .25f;
 
-    public float _playerSpeed;
+    [SerializeField]
+    private float _thrustMultiplier = 3.5f;
 
-    private float _thrusterRemaining = 100;
+    
 
-    private float _speedBoostAmount; 
-
-
-
-
+   
     [SerializeField]
     private GameObject _tripleshotPrefab;
 
@@ -58,24 +58,27 @@ public class Player : MonoBehaviour
     private GameObject _leftEngine;
 
     [SerializeField]
-    private GameObject thrusters;
+    private GameObject _thrusters;
+
     [SerializeField]
     private GameObject _shield;
 
+    
+   
     private CameraShake _cameraShake;
 
 
 
 
-    
+
     private AudioClip _laserShot;
 
     private AudioSource _audioSource;
 
-    
+
     private AudioClip _explosionSound;
 
-    
+    [SerializeField]
     private AudioClip _outOfAmmoSound;
 
 
@@ -98,23 +101,17 @@ public class Player : MonoBehaviour
 
     private bool _thrusterBoostActive = true;
 
-
-    [SerializeField]
-    private Image _thrusterBarImage;
+    private bool _refillMeter = false;
 
 
 
-
-
-
-
+    private ThrusterMeter _thrustMeter;
     
     private int _Score;
 
     private object _uiMannager;
 
     public UI_Manager _uiManager;
-
     
     private SpawnManager _spawnManager;
 
@@ -131,8 +128,8 @@ public class Player : MonoBehaviour
         _uiManager = GameObject.Find("Canvas").GetComponent<UI_Manager>();
         _shieldRenderer = _shield.GetComponent<Renderer>();
         _cameraShake = GameObject.Find("Main Camera").GetComponent<CameraShake>();
+        _thrustMeter = GameObject.Find("Thruster_Image_bar").GetComponent<ThrusterMeter>();
         
-
 
         if (_spawnManager == null)
         {
@@ -145,7 +142,7 @@ public class Player : MonoBehaviour
         }
 
 
-        _currentAmmo = _ammoAmount;
+        _ammoAmount = _maxAmmoCount;
 
 
         if (_cameraShake == null)
@@ -153,7 +150,7 @@ public class Player : MonoBehaviour
             Debug.LogError("The camerashake on player is null");
         }
 
-
+      
 
     }
 
@@ -162,10 +159,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         CalculateMovement();
-
-        Thrusters();
-
-
+        
 
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
@@ -174,6 +168,7 @@ public class Player : MonoBehaviour
                 FireLaser();
             }
         }
+
 
     }
 
@@ -199,76 +194,49 @@ public class Player : MonoBehaviour
         {
             transform.position = new Vector3(11, transform.position.y, 0);
         }
+
+        //Calculating thruster movment
+        if (_thrustMeter.returnFillAmount() >= 0 )
+        {
+            thrusterBoost();
+
+        }
+
+        if (_thrustMeter.returnFillAmount() == 0)
+        {
+            _refillMeter = true;
+            thrusterBoost();
+            StartCoroutine(RefillThruster());
+        }
+       
     }
 
-   
 
-
-    void Thrusters()
+    void thrusterBoost()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && _refillMeter == false )
         {
-            _thrusterBoostActive = true;
-            _isThrusterActive = true;
-            _speed *= _thrusterSpeed;
+            _speed *= _thrustMultiplier;
+            _thrustMeter.IsKeyPressed(true);
+                        
+          
+        }
+        
+        if (Input.GetKeyUp(KeyCode.LeftShift) && _refillMeter == false)
+        {
+            _speed /= _thrustMultiplier;
+            _thrustMeter.IsKeyPressed(false);
             
 
-
-        }
-
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            _isThrusterActive = false;
-            _speed /= _thrusterSpeed;
-            _thrusterBoostActive = false;
-
-        }
-
-
-
-    }
-
-    private void ThrusterDrain()
-    {
-        if (_isThrusterActive == true && _thrusterRemaining >= 0)
-        {
-            _thrusterRemaining -= Time.deltaTime * 50;
-        }
-
-        ChangeThruster(_thrusterRemaining);
-    }
-
-    private void ThrusterRecharge()
-    {
-        if (_isThrusterActive == false && _thrusterRemaining <= 100)
-        {
-            _thrusterRemaining += Time.deltaTime * 20;
         }
     }
-
-    private void BoosterExhausted()
-    {
-        if (_thrusterRemaining < 5)
-        {
-            _isThrusterActive = false;
-            _thrusterBoostActive = false;
-        }
-    }
-
-
-    private void ChangeThruster(float value)
-    {
-        _thrusterBarImage.fillAmount = value / 100;
-    }
-
 
    
+    
 
     void FireLaser()
     {
        
-
-
         _canFire = Time.time + _fireRate;
 
         if (_isTripleShotActive == true)
@@ -280,17 +248,23 @@ public class Player : MonoBehaviour
             Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
         }
 
-        _currentAmmo--;
-
-        if (_currentAmmo <= 0)
+        if(_ammoAmount == 0)
         {
-            _hasAmmo = false;
+            _noAmmo = true;
+            _ammoAmount = 0;
+           // _audioSource.PlayOutOfAmmoSound();
+
+            return;
+        }
+        else
+        {
+            _noAmmo = false;
         }
 
+        _ammoAmount -= 1;
     }
 
-    
-
+  
 
 
     public void SoundEffects()
@@ -335,8 +309,7 @@ public class Player : MonoBehaviour
     }
 
    
-  
-
+    
 
 
 
@@ -363,8 +336,10 @@ public class Player : MonoBehaviour
             
         }
 
-       
-      
+
+        _cameraShake.startShaking();
+        _lives -= 1;
+        _uiManager.UpdateLives(_lives);
 
         if (_lives <= 2)
         {
@@ -372,24 +347,22 @@ public class Player : MonoBehaviour
             _rightEngine.SetActive(true);
             
         }
-      
         else if (_lives >= 1)
         {
            
             _leftEngine.SetActive(true);
         }
 
-        StartCoroutine(_cameraShake.ShakeCamera(_shakeDuration, _shakeMag));
-
-        _lives -= 1;
-
-        _uiManager.UpdateLives(_lives);
-         
         if (_lives < 1)
         {
             _spawnManager.OnPlayerDeath();
             Destroy(this.gameObject);
         }
+
+
+
+
+
 
         switch (_lives)
         {
@@ -421,14 +394,9 @@ public class Player : MonoBehaviour
 
    }
 
-    IEnumerator ThrusterCoolDownRoutine()
-    {
-        {
-            yield return new WaitForSeconds(2.0f);
-            StartCoroutine(ThrusterCoolDownRoutine());
-        }
-       
-    }
+ 
+   
+   
     
 
     public void TripleShotActive()
@@ -437,6 +405,14 @@ public class Player : MonoBehaviour
         StartCoroutine(TripleShotPowerDownRoutine());
     }
 
+    
+    
+    public void SpeedBoostActive()
+    {
+        _isSpeedBoostActive = true;
+        _playerSpeed *= _speedmultiplier; 
+        StartCoroutine(SpeedBoostPowerDownRoutine());
+    }
     IEnumerator TripleShotPowerDownRoutine()
     {
         {
@@ -444,22 +420,24 @@ public class Player : MonoBehaviour
             _isTripleShotActive = false;
         }
 
-    } 
-    
-    public void SpeedBoostActive()
-    {
-        _isSpeedBoostActive = true;
-        _speed *= _speedmultiplier; 
-        StartCoroutine(SpeedBoostPowerDownRoutine());
     }
-
     IEnumerator SpeedBoostPowerDownRoutine()
     {
         yield return new WaitForSeconds(5.0f);
         _isSpeedBoostActive = false;
-        _speed /= _speedmultiplier;
+        _playerSpeed /= _speedmultiplier;
+    }
+
+    IEnumerator RefillThruster()
+    {
+        _speed /= _thrustMultiplier;
+        _thrustMeter.IsKeyPressed(false);
+        yield return new WaitForSeconds(5.0f / _thrustMeter.returnIncreaseMultiplier());
+        _refillMeter = false;
     }
     
+   
+
     public void ShieldsActive()
     {
         if(_currentShieldStrength == _shieldHealth)
@@ -482,13 +460,10 @@ public class Player : MonoBehaviour
         _Score += points;
         _uiManager.UpdateScore(_Score); 
     }
-
     public void RefillAmmo()
     {
-        _currentAmmo = _ammoAmount;
+        _ammoAmount = _maxAmmoCount;
         _hasAmmo = true;
-        
-
     }
 
     public void HealthRefill()
