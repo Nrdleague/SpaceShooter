@@ -111,8 +111,16 @@ public class Enemy : MonoBehaviour
             Destroy(GetComponent<Collider2D>());
             Destroy(this.gameObject, 1.0f);
 
+            if(other.tag == "Missile")
+            {
+                _AudioSource.Play();
+                Destroy(other.gameObject);
+                _AudioSource.Play();
+
+            }
+
         }
-       
+
        
 
     }

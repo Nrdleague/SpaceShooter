@@ -9,6 +9,8 @@ public class Powerup : MonoBehaviour
 
     [SerializeField]
     private AudioClip _clip;
+    [SerializeField]
+    public int _spawnWeight;
 
     public int powerUpID;
 
@@ -62,8 +64,9 @@ public class Powerup : MonoBehaviour
                     case 4:
                         player.HealthRefill();
                         break;
-                 
-                       
+                    case 5:
+                        player.HomingMissile();
+                        break;
                     default:
                         Debug.Log("normal");
                         break;

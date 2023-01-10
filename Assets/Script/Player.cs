@@ -28,8 +28,7 @@ public class Player : MonoBehaviour
 
     private float _speedmultiplier = 2.0f;
 
-    private int _ammoAmount = 0;
-
+    private int _ammoAmount;
     public int _maxAmmoCount = 15;
 
     private float _shakeDuration = .1f;
@@ -37,10 +36,9 @@ public class Player : MonoBehaviour
     private float _shakeMag = .25f;
 
     [SerializeField]
-    private float _thrustMultiplier = 3.5f;
+    private float _thrustMultiplier = 5.5f;
 
-    
-
+   
    
     [SerializeField]
     private GameObject _tripleshotPrefab;
@@ -63,23 +61,23 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _shield;
 
-    
+    [SerializeField]
+    private GameObject _missileShot;    
    
     private CameraShake _cameraShake;
 
 
 
-
-
+    [SerializeField]
     private AudioClip _laserShot;
 
     private AudioSource _audioSource;
-
+    
 
     private AudioClip _explosionSound;
 
     [SerializeField]
-    private AudioClip _outOfAmmoSound;
+    private AudioSource _outOfAmmoAudio;
 
 
 
@@ -103,7 +101,13 @@ public class Player : MonoBehaviour
 
     private bool _refillMeter = false;
 
+    private bool _isThunderBoltActive = false;
 
+    private bool _isMissileShotActive = false;
+
+    private bool _canLaserFire = true;
+
+    private bool _isAmmoActive = false;
 
     private ThrusterMeter _thrustMeter;
     
@@ -159,17 +163,30 @@ public class Player : MonoBehaviour
     void Update()
     {
         CalculateMovement();
-        
+
+        if (_isAmmoActive == true && _maxAmmoCount == 0)
+        {
+            _ammoAmount = 15;
+            _uiManager.UpdateAmmoCount(_maxAmmoCount);
+        }
+
 
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
+            _maxAmmoCount -= 1;
+            _uiManager.UpdateAmmoCount(_maxAmmoCount);
+            if(_maxAmmoCount < 0)
+            {
+                _maxAmmoCount = 0;
+            }
+
             if (_hasAmmo == true)
             {
                 FireLaser();
             }
         }
 
-
+        
     }
 
 
@@ -237,35 +254,39 @@ public class Player : MonoBehaviour
     void FireLaser()
     {
        
-        _canFire = Time.time + _fireRate;
-
-        if (_isTripleShotActive == true)
-        {
-            Instantiate(_tripleshotPrefab, transform.position, Quaternion.identity);
-        }
-        else
-        {
-            Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
-        }
-
         if(_ammoAmount == 0)
         {
-            _noAmmo = true;
-            _ammoAmount = 0;
-           // _audioSource.PlayOutOfAmmoSound();
-
+            _outOfAmmoAudio.clip = _laserShot;
+            _audioSource.Play();
             return;
-        }
-        else
-        {
-            _noAmmo = false;
+
+            Vector3 offset = new Vector3(0, 1.14f, 0);
+
+            _canFire = Time.time + _fireRate;
+
+            if (_isTripleShotActive == true)
+            {
+                Instantiate(_tripleshotPrefab, transform.position, Quaternion.identity);
+            }
+            else if (_isMissileShotActive)
+            {
+                Instantiate(_missileShot, transform.position, Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
+                _ammoAmount--;
+            }
+
+            _ammoAmount--;
+            _uiManager.Ammo(_ammoAmount);
+
         }
 
         _ammoAmount -= 1;
     }
 
-  
-
+   
 
     public void SoundEffects()
     {
@@ -394,9 +415,17 @@ public class Player : MonoBehaviour
 
    }
 
- 
-   
-   
+    public void HomingMissile()
+    {
+        _isMissileShotActive = true;
+        StartCoroutine(MissileShotPowerDownRoutine());
+    }
+
+    private IEnumerator MissileShotPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5f);
+        _isMissileShotActive = false;
+    } 
     
 
     public void TripleShotActive()
@@ -413,6 +442,9 @@ public class Player : MonoBehaviour
         _playerSpeed *= _speedmultiplier; 
         StartCoroutine(SpeedBoostPowerDownRoutine());
     }
+
+  
+
     IEnumerator TripleShotPowerDownRoutine()
     {
         {
@@ -462,8 +494,11 @@ public class Player : MonoBehaviour
     }
     public void RefillAmmo()
     {
-        _ammoAmount = _maxAmmoCount;
-        _hasAmmo = true;
+       if(_ammoAmount != _maxAmmoCount)
+       {
+            _ammoAmount = _maxAmmoCount;
+            _uiManager.Ammo(_ammoAmount);
+       }
     }
 
     public void HealthRefill()
@@ -488,5 +523,7 @@ public class Player : MonoBehaviour
         }
     }
 
+
+   
    
 }

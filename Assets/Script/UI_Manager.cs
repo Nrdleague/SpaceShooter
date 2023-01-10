@@ -20,7 +20,11 @@ public class UI_Manager : MonoBehaviour
     private Image _livesImage;
     [SerializeField]
     private Sprite[] _liveSprites;
-    
+
+    [SerializeField]
+    private Text _outOfAmmoText;
+    [SerializeField]
+    private Text _ammoText;
     
 
   
@@ -52,10 +56,21 @@ public class UI_Manager : MonoBehaviour
         _scoreText.text = " Score : " + playerScore.ToString();
     }
 
-    
-   
+    public void Ammo(int currentAmmo)
+    {
+        _ammoText.text = $"Ammo: {currentAmmo}";
 
-    
+        if (currentAmmo <= 0)
+            _outOfAmmoText.gameObject.SetActive(true);
+        else if (currentAmmo > 0)
+            _outOfAmmoText.gameObject.SetActive(false);
+    }
+
+    public void UpdateAmmoCount(int ammoCount)
+    {
+        _ammoCountText.text = "Ammo: " + ammoCount.ToString();
+    }
+
 
     public void UpdateLives(int currentLives)
     {

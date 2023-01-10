@@ -240,7 +240,9 @@ MonoBehaviour:
   _leftEngine: {fileID: 381608958}
   _thrusters: {fileID: 2070946751}
   _shield: {fileID: 480407510}
-  _outOfAmmoSound: {fileID: 0}
+  _missileShot: {fileID: 7964708838897528395, guid: 22d3c0b58e330fc4a821a0190e89be67, type: 3}
+  _laserShot: {fileID: 8300000, guid: 1b0b9ba2403677240b3d91044ed428a5, type: 3}
+  _outOfAmmoSound: {fileID: 8300000, guid: f960926786bd8104dae625633368c309, type: 3}
   _uiManager: {fileID: 1567619843}
 --- !u!61 &204642183
 BoxCollider2D:
@@ -1455,6 +1457,86 @@ MonoBehaviour:
   _reduceRefreshMultiplier: 1.1
   _increaseRefreshMultiplier: 0.5
   Thruster_Image_bar: {fileID: 1396420882}
+--- !u!1 &1410301635
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1410301636}
+  - component: {fileID: 1410301638}
+  - component: {fileID: 1410301637}
+  m_Layer: 5
+  m_Name: Out_Of_Ammo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1410301636
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410301635}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1567619847}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 45, y: -210}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1410301637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410301635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Out Of Ammo
+--- !u!222 &1410301638
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410301635}
+  m_CullTransparentMesh: 1
 --- !u!1 &1441112295
 GameObject:
   m_ObjectHideFlags: 0
@@ -1641,6 +1723,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 80fba5ece7697c44eacc036539c1b552, type: 3}
   - {fileID: 21300000, guid: 482c8e4c0346b704aa5f1760c3c989d5, type: 3}
   - {fileID: 21300000, guid: 9fe6f40efddf0b64fb68a3382b14a4db, type: 3}
+  _outOfAmmoText: {fileID: 1410301637}
+  _ammoText: {fileID: 1024960768}
 --- !u!114 &1567619844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1721,6 +1805,7 @@ RectTransform:
   - {fileID: 293786684}
   - {fileID: 701378817}
   - {fileID: 2138489482}
+  - {fileID: 1410301636}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1949,15 +2034,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyPrefab: {fileID: 3896913971099706123, guid: 2a8725c6e0f3e904dba2e2147eba8a54, type: 3}
   _enemyContainer: {fileID: 1861755762}
-  _tripleShotPowerUp: {fileID: 7780360386535816471, guid: c1d79af82f0d76342adf54688a1c5df5, type: 3}
-  _speedPowerup: {fileID: 1200582138870670259, guid: 5ea9352af8d3163488207170b960c0d7, type: 3}
-  _shieldPowerUp: {fileID: 1200582138870670259, guid: 5ea9352af8d3163488207170b960c0d7, type: 3}
   powerUps:
   - {fileID: 7780360386535816471, guid: c1d79af82f0d76342adf54688a1c5df5, type: 3}
   - {fileID: 8272491583422139597, guid: f53adf92c8cae064c927c1b17d6f89b3, type: 3}
   - {fileID: 1200582138870670259, guid: 5ea9352af8d3163488207170b960c0d7, type: 3}
   - {fileID: 4677708105301658263, guid: 7b529c9138b58ef418abe49149acc930, type: 3}
   - {fileID: 7033002190366013075, guid: b3b08e89157734b4dbe1714aa74ca869, type: 3}
+  _spawnWeight: 30
 --- !u!1 &1861755762
 GameObject:
   m_ObjectHideFlags: 0
