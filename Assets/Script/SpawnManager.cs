@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -24,7 +25,7 @@ public class SpawnManager : MonoBehaviour
     {
         StartCoroutine(SpawnEnemyRoutine());
         StartCoroutine(SpawnPowerUpRoutine());
-        StartCoroutine(SpawnRarePowerUpRoutine());
+        
     }
     
     private void PickPowerUpToSpawn()
@@ -50,7 +51,7 @@ public class SpawnManager : MonoBehaviour
 
     }
 
-  
+   
 
     IEnumerator SpawnEnemyRoutine()
     {
@@ -67,29 +68,23 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnPowerUpRoutine()
     {
+        yield return new WaitForSeconds(3.0f);
+
         while(_stopSpawning == false)
         {
-            
+            Vector3 spawnArea = new Vector3(UnityEngine.Random.Range(-9, 9), 7, 0);
             Vector3 posToSpawn = new Vector3(Random.Range(-8.0f, 8.0f), 7, 0);
             int randompowerup = Random.Range(0, 5);
             Instantiate(powerUps[randompowerup], posToSpawn, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(3, 7.0f));
+            
 
         }
 
     }
 
   
-    IEnumerator SpawnRarePowerUpRoutine()
-    {
-        while (_stopSpawning == false)
-        {
-            Vector3 posToSpawn = new Vector3(Random.Range(-8.0f, 8.0f), 7, 0);
-            int randomRarepowerup = Random.Range(0, 1);
-            Instantiate(powerUps[randomRarepowerup], posToSpawn, Quaternion.identity);
-            yield return new WaitForSeconds(Random.Range(3, 7.0f));
-        }
-    }
+  
 
 
     public void OnPlayerDeath()

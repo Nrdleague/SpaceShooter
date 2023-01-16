@@ -60,6 +60,9 @@ public class Enemy : MonoBehaviour
            
 
         }
+
+
+        Enemy[] allEnemies = GameObject.FindObjectsOfType<Enemy>();
     }
 
     void EnemyMovement()
@@ -105,19 +108,15 @@ public class Enemy : MonoBehaviour
 
             }
             
-            _Anim.SetTrigger("OnEnemyDeath");
-            _enemyspeed = 0;
-            _AudioSource.Play();
-            Destroy(GetComponent<Collider2D>());
-            Destroy(this.gameObject, 1.0f);
+           ///// _Anim.SetTrigger("OnEnemyDeath");
+           // _enemyspeed = 0;
+          //  _AudioSource.Play();
+           //  Destroy(GetComponent<Collider2D>());
+            //Destroy(this.gameObject, 1.0f);
+//
+           // else if (other.CompareTag("Missile")) { }
 
-            if(other.tag == "Missile")
-            {
-                _AudioSource.Play();
-                Destroy(other.gameObject);
-                _AudioSource.Play();
 
-            }
 
         }
 

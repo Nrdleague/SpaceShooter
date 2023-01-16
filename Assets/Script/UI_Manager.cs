@@ -34,8 +34,8 @@ public class UI_Manager : MonoBehaviour
 
     void Start()
     {
-
         
+        _gameOverText.gameObject.SetActive(false);  
         _scoreText.text = " Score : " + 0;
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         _player = GameObject.Find("Player").GetComponent<Player>();
@@ -74,18 +74,18 @@ public class UI_Manager : MonoBehaviour
 
     public void UpdateLives(int currentLives)
     {
-        if (currentLives < -1)
-        {
-            _livesImage.sprite = _liveSprites[currentLives];
-        }
-        
-        if (currentLives == 0)
+        //display Image Sprite
+        //give it a new one based on the currentLives index
+        _livesImage.sprite = _liveSprites[currentLives];
+
+        if(currentLives == 0)
         {
             GameOverSequence();
         }
+
     }
 
-   
+    
 
 
     void GameOverSequence()
@@ -100,7 +100,7 @@ public class UI_Manager : MonoBehaviour
 
     IEnumerator GameOverFlickerRoutine()
     {
-        while (true)
+        while(true)
         {
             _gameOverText.text = "GAME OVER";
             yield return new WaitForSeconds(0.5f);

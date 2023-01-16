@@ -9,16 +9,9 @@ public class HomingMissile : MonoBehaviour
     private GameObject _target;
     [SerializeField]
     private GameObject _explosionPrefab;
-
+    [SerializeField]
     private bool _isEnemyDetected = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         transform.Translate(Vector3.up * _missileSpeed * Time.deltaTime);
@@ -26,25 +19,23 @@ public class HomingMissile : MonoBehaviour
 
         transform.Translate(Vector3.up * _missileSpeed * Time.deltaTime);
         transform.localRotation = Quaternion.LookRotation(transform.forward, newDirection);
+
+        MissileBehavior(); 
     }
 
-    private void FindEnemy()
+    void MissileBehavior()
     {
         Collider2D _targets = Physics2D.OverlapCircle(transform.position, 3f);
         if (_targets.CompareTag("Enemy"))
         {
             _target = _targets.gameObject;
-            _isEnemyDetected = true;   
+            _isEnemyDetected = true;
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Enemy"))
-        {
-            Instantiate(_explosionPrefab, transform.position, transform.rotation);
 
-            Destroy(gameObject);
-        }
-    }
+
+
+
+
 }

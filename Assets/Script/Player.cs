@@ -26,6 +26,13 @@ public class Player : MonoBehaviour
 
     private int _lives = 3;
 
+    [SerializeField]
+    private bool _homingMissileActive;
+    [SerializeField]
+    private float _homingMissileCoolDown = 3f;
+    [SerializeField]
+    private GameObject _homingMissilePrefab;
+
     private float _speedmultiplier = 2.0f;
 
     private int _ammoAmount;
@@ -254,11 +261,8 @@ public class Player : MonoBehaviour
     void FireLaser()
     {
        
-        if(_ammoAmount == 0)
-        {
-            _outOfAmmoAudio.clip = _laserShot;
-            _audioSource.Play();
-            return;
+      
+            
 
             Vector3 offset = new Vector3(0, 1.14f, 0);
 
@@ -272,7 +276,7 @@ public class Player : MonoBehaviour
             {
                 Instantiate(_missileShot, transform.position, Quaternion.identity);
             }
-            else
+            else 
             {
                 Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
                 _ammoAmount--;
@@ -281,7 +285,7 @@ public class Player : MonoBehaviour
             _ammoAmount--;
             _uiManager.Ammo(_ammoAmount);
 
-        }
+       
 
         _ammoAmount -= 1;
     }
@@ -359,9 +363,19 @@ public class Player : MonoBehaviour
 
 
         _cameraShake.startShaking();
-        _lives -= 1;
+
+        _lives--;
         _uiManager.UpdateLives(_lives);
 
+        if(_lives < 1)
+        {
+            _spawnManager.OnPlayerDeath();
+            Destroy(this.gameObject);
+           // _isGameOver = true;
+                                  
+        }
+
+        //for shield damage system
         if (_lives <= 2)
         {
             

@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3896913971099706119}
-  - component: {fileID: 1935150625}
   - component: {fileID: 3230254861233275116}
   - component: {fileID: 8643155571167065654}
   - component: {fileID: 6981993931051543492}
   - component: {fileID: 1143707549}
   - component: {fileID: -5114719290272724429}
+  - component: {fileID: 1514281388}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -37,21 +37,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1935150625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3896913971099706123}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69fac7cc3a73c6040b1fa51a75e784eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enemyspeed: 4
-  _explosionSound: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
-  _enemylaserPrefab: {fileID: 1011849700965782179, guid: c30be2ac35e3ad340ab5e70f679ef8dc, type: 3}
 --- !u!212 &3230254861233275116
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -92,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1971528869
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 3154912113cbb4a498df6f571c74e18c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -267,3 +252,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1514281388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3896913971099706123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69fac7cc3a73c6040b1fa51a75e784eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyspeed: 4
+  _explosionSound: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
+  _enemylaserPrefab: {fileID: 1011849700965782179, guid: c30be2ac35e3ad340ab5e70f679ef8dc, type: 3}

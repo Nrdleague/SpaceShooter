@@ -231,6 +231,9 @@ MonoBehaviour:
   _speed: 3.5
   _currentShieldStrength: 0
   _playerSpeed: 0
+  _homingMissileActive: 0
+  _homingMissileCoolDown: 3
+  _homingMissilePrefab: {fileID: 0}
   _maxAmmoCount: 15
   _thrustMultiplier: 1.5
   _tripleshotPrefab: {fileID: 2984327673600483268, guid: 6298a3a38acd8394e9e9960eb5ba9e9a, type: 3}
@@ -242,7 +245,7 @@ MonoBehaviour:
   _shield: {fileID: 480407510}
   _missileShot: {fileID: 7964708838897528395, guid: 22d3c0b58e330fc4a821a0190e89be67, type: 3}
   _laserShot: {fileID: 8300000, guid: 1b0b9ba2403677240b3d91044ed428a5, type: 3}
-  _outOfAmmoSound: {fileID: 8300000, guid: f960926786bd8104dae625633368c309, type: 3}
+  _outOfAmmoAudio: {fileID: 0}
   _uiManager: {fileID: 1567619843}
 --- !u!61 &204642183
 BoxCollider2D:
@@ -1258,7 +1261,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1350482844
 GameObject:
@@ -2436,7 +2439,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1478812623241845247, guid: efdc207dcf526de4c985783fed7b137a, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1478812623241845247, guid: efdc207dcf526de4c985783fed7b137a, type: 3}
       propertyPath: m_LocalPosition.x
