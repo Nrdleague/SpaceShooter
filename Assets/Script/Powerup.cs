@@ -59,7 +59,7 @@ public class Powerup : MonoBehaviour
                         player.ShieldsActive();
                         break;
                     case 3:
-                        player.RefillAmmo();
+                        player.RefillAmmoCount();
                         break;
                     case 4:
                         player.HealthRefill();

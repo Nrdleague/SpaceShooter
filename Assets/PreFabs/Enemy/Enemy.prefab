@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 3896913971099706123}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -267,3 +267,4 @@ MonoBehaviour:
   _enemyspeed: 4
   _explosionSound: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
   _enemylaserPrefab: {fileID: 1011849700965782179, guid: c30be2ac35e3ad340ab5e70f679ef8dc, type: 3}
+  _explosion: {fileID: 7091601156789549068, guid: 0dc8f6fc540caaa4d81b6afb17b8b954, type: 3}

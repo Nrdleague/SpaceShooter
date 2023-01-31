@@ -205,7 +205,7 @@ Transform:
   m_GameObject: {fileID: 204642179}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.09, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 480407515}
@@ -231,10 +231,8 @@ MonoBehaviour:
   _speed: 3.5
   _currentShieldStrength: 0
   _playerSpeed: 0
-  _homingMissileActive: 0
-  _homingMissileCoolDown: 3
-  _homingMissilePrefab: {fileID: 0}
-  _maxAmmoCount: 15
+  _ammoCount: 15
+  _maximumAmmoCount: 0
   _thrustMultiplier: 1.5
   _tripleshotPrefab: {fileID: 2984327673600483268, guid: 6298a3a38acd8394e9e9960eb5ba9e9a, type: 3}
   _laserPrefab: {fileID: 6300938615926712040, guid: 53c351ad6f46a554cb0c0964754d32fd, type: 3}
@@ -243,9 +241,10 @@ MonoBehaviour:
   _leftEngine: {fileID: 381608958}
   _thrusters: {fileID: 2070946751}
   _shield: {fileID: 480407510}
-  _missileShot: {fileID: 7964708838897528395, guid: 22d3c0b58e330fc4a821a0190e89be67, type: 3}
+  _homingMissilePrefab: {fileID: 7964708838897528395, guid: 22d3c0b58e330fc4a821a0190e89be67, type: 3}
+  _explosion: {fileID: 7091601156789549068, guid: 0dc8f6fc540caaa4d81b6afb17b8b954, type: 3}
   _laserShot: {fileID: 8300000, guid: 1b0b9ba2403677240b3d91044ed428a5, type: 3}
-  _outOfAmmoAudio: {fileID: 0}
+  _outOfAmmoAudio: {fileID: 8300000, guid: f960926786bd8104dae625633368c309, type: 3}
   _uiManager: {fileID: 1567619843}
 --- !u!61 &204642183
 BoxCollider2D:
@@ -1681,7 +1680,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1567619842
 GameObject:
@@ -2021,7 +2020,7 @@ Transform:
   m_Children:
   - {fileID: 1861755763}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1792790957
 MonoBehaviour:
@@ -2043,7 +2042,7 @@ MonoBehaviour:
   - {fileID: 1200582138870670259, guid: 5ea9352af8d3163488207170b960c0d7, type: 3}
   - {fileID: 4677708105301658263, guid: 7b529c9138b58ef418abe49149acc930, type: 3}
   - {fileID: 7033002190366013075, guid: b3b08e89157734b4dbe1714aa74ca869, type: 3}
-  _spawnWeight: 30
+  - {fileID: 8940437261522936323, guid: f9e0015172c8ccc41b6697f2893a27dd, type: 3}
 --- !u!1 &1861755762
 GameObject:
   m_ObjectHideFlags: 0
@@ -2374,7 +2373,7 @@ RectTransform:
   m_GameObject: {fileID: 2138489479}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.820625, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1567619847}
@@ -2382,7 +2381,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -301, y: -174.1}
+  m_AnchoredPosition: {x: -301, y: -170.3}
   m_SizeDelta: {x: 153.95, y: 23.6857}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2145904017
@@ -2439,7 +2438,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1478812623241845247, guid: efdc207dcf526de4c985783fed7b137a, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1478812623241845247, guid: efdc207dcf526de4c985783fed7b137a, type: 3}
       propertyPath: m_LocalPosition.x

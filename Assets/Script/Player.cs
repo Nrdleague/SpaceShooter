@@ -27,16 +27,11 @@ public class Player : MonoBehaviour
     private int _lives = 3;
 
     [SerializeField]
-    private bool _homingMissileActive;
+    private int _ammoCount = 15;
     [SerializeField]
-    private float _homingMissileCoolDown = 3f;
-    [SerializeField]
-    private GameObject _homingMissilePrefab;
+    private int _maximumAmmoCount;
 
-    private float _speedmultiplier = 2.0f;
-
-    private int _ammoAmount;
-    public int _maxAmmoCount = 15;
+    private float _speedmultiplier = 3.5f;
 
     private float _shakeDuration = .1f;
 
@@ -45,6 +40,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _thrustMultiplier = 5.5f;
 
+  
+   
    
    
     [SerializeField]
@@ -69,7 +66,10 @@ public class Player : MonoBehaviour
     private GameObject _shield;
 
     [SerializeField]
-    private GameObject _missileShot;    
+    private GameObject _homingMissilePrefab;
+
+    [SerializeField]
+    private GameObject _explosion;
    
     private CameraShake _cameraShake;
 
@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
     private AudioClip _explosionSound;
 
     [SerializeField]
-    private AudioSource _outOfAmmoAudio;
+    private AudioClip _outOfAmmoAudio;
 
 
 
@@ -110,7 +110,7 @@ public class Player : MonoBehaviour
 
     private bool _isThunderBoltActive = false;
 
-    private bool _isMissileShotActive = false;
+    private bool _isHomingMissile = false;
 
     private bool _canLaserFire = true;
 
@@ -153,7 +153,7 @@ public class Player : MonoBehaviour
         }
 
 
-        _ammoAmount = _maxAmmoCount;
+        _maximumAmmoCount = _ammoCount;
 
 
         if (_cameraShake == null)
@@ -161,6 +161,10 @@ public class Player : MonoBehaviour
             Debug.LogError("The camerashake on player is null");
         }
 
+        if(_homingMissilePrefab == null)
+        {
+            Debug.Log("_homingMissileprefab is null");
+        }
       
 
     }
@@ -171,28 +175,18 @@ public class Player : MonoBehaviour
     {
         CalculateMovement();
 
-        if (_isAmmoActive == true && _maxAmmoCount == 0)
+       
+        if(Input.GetKey(KeyCode.Space) && Time.time > _canFire && _ammoCount != 0)
         {
-            _ammoAmount = 15;
-            _uiManager.UpdateAmmoCount(_maxAmmoCount);
+            FireLaser();
+
+           
+            _ammoCount -= 1;
+            _uiManager.UpdateAmmoCount(_ammoCount, _maximumAmmoCount);
+           // _audioSource.PlayOneShot(_outOfAmmoAudio);
         }
 
-
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
-        {
-            _maxAmmoCount -= 1;
-            _uiManager.UpdateAmmoCount(_maxAmmoCount);
-            if(_maxAmmoCount < 0)
-            {
-                _maxAmmoCount = 0;
-            }
-
-            if (_hasAmmo == true)
-            {
-                FireLaser();
-            }
-        }
-
+       
         
     }
 
@@ -204,9 +198,12 @@ public class Player : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
-        Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
+        // player now stops moving after input
+        transform.Translate((transform.up * Input.GetAxisRaw("Vertical") + transform.right * Input.GetAxisRaw("Horizontal")).normalized * _speed * Time.deltaTime);
 
-        transform.Translate(direction * _speed * Time.deltaTime);
+       // Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
+
+       // transform.Translate(direction * _speed * Time.deltaTime);
 
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.8f, 0));
 
@@ -242,8 +239,6 @@ public class Player : MonoBehaviour
         {
             _speed *= _thrustMultiplier;
             _thrustMeter.IsKeyPressed(true);
-                        
-          
         }
         
         if (Input.GetKeyUp(KeyCode.LeftShift) && _refillMeter == false)
@@ -272,22 +267,17 @@ public class Player : MonoBehaviour
             {
                 Instantiate(_tripleshotPrefab, transform.position, Quaternion.identity);
             }
-            else if (_isMissileShotActive)
+            else if (_isHomingMissile)
             {
-                Instantiate(_missileShot, transform.position, Quaternion.identity);
+                Instantiate(_homingMissilePrefab, transform.position, Quaternion.identity);
             }
             else 
             {
                 Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
-                _ammoAmount--;
+                
             }
 
-            _ammoAmount--;
-            _uiManager.Ammo(_ammoAmount);
-
-       
-
-        _ammoAmount -= 1;
+            
     }
 
    
@@ -371,7 +361,7 @@ public class Player : MonoBehaviour
         {
             _spawnManager.OnPlayerDeath();
             Destroy(this.gameObject);
-           // _isGameOver = true;
+           
                                   
         }
 
@@ -426,21 +416,32 @@ public class Player : MonoBehaviour
         }
         _uiManager.UpdateLives(_lives);
 
+        //if player collects health while max on health
+        //ignore health pick up
+
 
    }
 
-    public void HomingMissile()
+    public void RefillAmmoCount()
     {
-        _isMissileShotActive = true;
-        StartCoroutine(MissileShotPowerDownRoutine());
+        _ammoCount = _maximumAmmoCount;
+        _uiManager.UpdateAmmoCount(_ammoCount, _maximumAmmoCount);
     }
 
-    private IEnumerator MissileShotPowerDownRoutine()
+
+    public void HomingMissile()
     {
-        yield return new WaitForSeconds(5f);
-        _isMissileShotActive = false;
-    } 
-    
+        StartCoroutine(HomingMissleRoutine());
+    }
+
+    IEnumerator HomingMissleRoutine()
+    {
+        _isHomingMissile = true;
+        yield return new WaitForSeconds(5.0f);
+        _isHomingMissile = false;
+    }
+
+
 
     public void TripleShotActive()
     {
@@ -506,35 +507,39 @@ public class Player : MonoBehaviour
         _Score += points;
         _uiManager.UpdateScore(_Score); 
     }
-    public void RefillAmmo()
-    {
-       if(_ammoAmount != _maxAmmoCount)
-       {
-            _ammoAmount = _maxAmmoCount;
-            _uiManager.Ammo(_ammoAmount);
-       }
-    }
-
+    
     public void HealthRefill()
     {
-        _lives++;
-        _uiManager.UpdateLives(_lives);
-
-
-
-        switch (_lives)
+        if(_lives < 3)
         {
-            case 3:
-                _rightEngine.SetActive(false);
-                _rightEngine.SetActive(false);
-                break;
-            case 2:
-                _leftEngine.SetActive(false);
-                _leftEngine.SetActive(false);
-                break;
-            default:
-                break;
+            _lives++;
+            _uiManager.UpdateLives(_lives);
+
+            switch (_lives)
+            {
+                case 3:
+                    _rightEngine.SetActive(false);
+                    _rightEngine.SetActive(false);
+                    break;
+                case 2:
+                    _leftEngine.SetActive(false);
+                    _leftEngine.SetActive(false);
+                    break;
+                default:
+                    break;
+            }
+
+
         }
+
+        else
+        {
+            _lives = 3;
+        }
+
+
+      
+       
     }
 
 
