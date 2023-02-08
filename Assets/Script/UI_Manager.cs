@@ -51,7 +51,7 @@ public class UI_Manager : MonoBehaviour
    
     public void UpdateAmmoCount(int ammoCount, int maximumAmmo)
     {
-        _ammoText.text = ammoCount + " / " + maximumAmmo;
+        _ammoText.text = " Ammo :  " + ammoCount + " / " + maximumAmmo;
 
         if(ammoCount == 0)
         {
