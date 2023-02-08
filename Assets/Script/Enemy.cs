@@ -22,11 +22,13 @@ public class Enemy : MonoBehaviour
     private GameObject _explosion;
 
     private Animator _enemyAnim;
-    
+    private EnemyMovement _enemyMove;
     
     void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
+        
+
         
         if(_player == null)
         {
