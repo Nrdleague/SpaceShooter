@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1143707549}
   - component: {fileID: -5114719290272724429}
   - component: {fileID: 1514281388}
+  - component: {fileID: 1323787870}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -268,3 +269,17 @@ MonoBehaviour:
   _explosionSound: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
   _enemylaserPrefab: {fileID: 1011849700965782179, guid: c30be2ac35e3ad340ab5e70f679ef8dc, type: 3}
   _explosion: {fileID: 7091601156789549068, guid: 0dc8f6fc540caaa4d81b6afb17b8b954, type: 3}
+--- !u!114 &1323787870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3896913971099706123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01deb8f773c19ca4ea845ec190141882, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enemy: {fileID: 1514281388}
+  _moveSpeed: 1
