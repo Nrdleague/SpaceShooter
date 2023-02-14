@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,7 +23,8 @@ public class UI_Manager : MonoBehaviour
     private Text _outOfAmmoText;
     [SerializeField]
     private Text _ammoText;
-    
+    [SerializeField]
+    private TextMeshProUGUI _waveCounter;
 
   
     
@@ -68,7 +67,13 @@ public class UI_Manager : MonoBehaviour
         _scoreText.text = " Score : " + playerScore.ToString();
     }
 
-   
+    public void UpdateWaveStartDisplay(int currentWave)
+    {
+        _waveCounter.gameObject.SetActive(true);
+        _waveCounter.text = "Wave:" + currentWave;
+        StartCoroutine(BlinkGameObject(_waveCounter.gameObject, 2, .7f, false));
+    }
+
 
 
     public void UpdateLives(int currentLives)
@@ -105,6 +110,44 @@ public class UI_Manager : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             _gameOverText.text = "";
             yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    IEnumerator SpawnEnemeyRoutine()
+    {
+        int enemiesSpawned = 0;
+        yield return new WaitForSeconds(3.0f);
+
+        while (_stopSpawning != true)
+        {
+            if(enemiesSpawned != _waveManager.enemiesToSpawn)
+            {
+                if(_waveManager._currentWave < 5)
+                {
+                    GameObject newEnemy = Instantiate(_enemyPrefabs[0], RandomPos(), Quaternion.identity);
+                    newEnemy.transform.parent = _enemyContainer.transform;
+
+                    _waveManager.enemiesLeft++;
+                    enemiesSpawned++;
+                }
+            }
+
+            else if(_waveManager.currentWave >= 5)
+            {
+                int randomEnemyID = Random.Range(0, 2);
+
+                GameObject newEnemy = Instantiate
+            }
+            else
+            {
+                _waveManager.startOfWave = false;
+                enemiesSpawned = 0;
+                StopSpawning();
+            }
+
+            yield return new WaitForSeconds(3f);
+
+
         }
     }
    
