@@ -37,6 +37,8 @@ public class Player : MonoBehaviour
 
     private float _shakeMag = .25f;
 
+    private int _currentKillCount;
+
     [SerializeField]
     private float _thrustMultiplier = 5.5f;
 
@@ -320,6 +322,20 @@ public class Player : MonoBehaviour
                 break;
               
 
+        }
+    }
+
+    public void CurrentKillCount()
+    {
+        _currentKillCount++;
+        Debug.Log(_currentKillCount);
+        if(_currentKillCount > 10)
+        {
+            _spawnManager.WaveTwo();
+        }
+        if(_currentKillCount >= 40)
+        {
+            _spawnManager.WaveThree();
         }
     }
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Asteroid : MonoBehaviour
@@ -9,10 +10,11 @@ public class Asteroid : MonoBehaviour
     [SerializeField]
     private GameObject ExplosionPrefab;
     private SpawnManager _spawnManager;
-    
+    private UI_Manager _uiManager;
     void Start()
     {
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
+        
     }
 
     
@@ -29,6 +31,8 @@ public class Asteroid : MonoBehaviour
         {
             Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
             Destroy(Other.gameObject);
+           
+           
             _spawnManager.StartSpawning();
             Destroy(this.gameObject, 0.25f);
         }

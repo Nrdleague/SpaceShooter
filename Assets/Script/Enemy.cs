@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour
 
     private Animator _enemyAnim;
     private EnemyMovement _enemyMove;
+    private SpawnManager _spawnManager;
     
     void Start()
     {
@@ -104,16 +105,19 @@ public class Enemy : MonoBehaviour
        
         if (other.tag == "Laser")
         {
+            Destroy(other.gameObject);  
+
 
             if (_player != null)
             {
                 _player.AddScore(10);
-
+                _player.CurrentKillCount();
             }
 
             _enemyAnim.SetTrigger("OnEnemyDeath");
             _AudioSource.Play();
             Destroy(this.gameObject, 1.8f);
+            
         }
 
         if(other.tag == "Missile")

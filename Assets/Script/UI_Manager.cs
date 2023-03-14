@@ -18,41 +18,42 @@ public class UI_Manager : MonoBehaviour
     private Image _livesImage;
     [SerializeField]
     private Sprite[] _liveSprites;
-   
+
     [SerializeField]
     private Text _outOfAmmoText;
     [SerializeField]
     private Text _ammoText;
     [SerializeField]
-    private TextMeshProUGUI _waveCounter;
+    private Text _waveDisplay;
+
 
   
-    
     private GameManager _gameManager;
     private Player _player;
 
     void Start()
     {
-        
-        _gameOverText.gameObject.SetActive(false);  
+
+        _gameOverText.gameObject.SetActive(false);
         _scoreText.text = " Score : " + 0;
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         _player = GameObject.Find("Player").GetComponent<Player>();
-        
+       
+
         if (_gameManager == null)
         {
             Debug.LogError("Game Manager is null");
         }
 
-        
+
     }
 
-   
+
     public void UpdateAmmoCount(int ammoCount, int maximumAmmo)
     {
-        _ammoText.text = ammoCount + " / " + maximumAmmo;
+        _ammoText.text = " Ammo :  " + ammoCount + " / " + maximumAmmo;
 
-        if(ammoCount == 0)
+        if (ammoCount == 0)
         {
             _ammoText.color = Color.white;
         }
@@ -67,12 +68,6 @@ public class UI_Manager : MonoBehaviour
         _scoreText.text = " Score : " + playerScore.ToString();
     }
 
-    public void UpdateWaveStartDisplay(int currentWave)
-    {
-        _waveCounter.gameObject.SetActive(true);
-        _waveCounter.text = "Wave:" + currentWave;
-        StartCoroutine(BlinkGameObject(_waveCounter.gameObject, 2, .7f, false));
-    }
 
 
 
@@ -82,15 +77,28 @@ public class UI_Manager : MonoBehaviour
         //give it a new one based on the currentLives index
         _livesImage.sprite = _liveSprites[currentLives];
 
-        if(currentLives == 0)
+        if (currentLives == 0)
         {
             GameOverSequence();
         }
 
     }
 
-    
+    public void DisplayWaveNumber(int waveNumber)
+    {
+        _waveDisplay.text = "Wave" + waveNumber;
+        _waveDisplay.gameObject.SetActive(true);
+        StartCoroutine(WaveDisplayRoutine());
+    }
 
+    IEnumerator WaveDisplayRoutine()
+    {
+        while(_waveDisplay == true)
+        {
+            yield return new WaitForSeconds(3f);
+            _waveDisplay.gameObject.SetActive(false);
+        }
+    }
 
     void GameOverSequence()
     {
@@ -99,12 +107,12 @@ public class UI_Manager : MonoBehaviour
         _gameOverText.gameObject.SetActive(true);
         _restartText.gameObject.SetActive(true);
         StartCoroutine(GameOverFlickerRoutine());
-        
+
     }
 
     IEnumerator GameOverFlickerRoutine()
     {
-        while(true)
+        while (true)
         {
             _gameOverText.text = "GAME OVER";
             yield return new WaitForSeconds(0.5f);
@@ -113,44 +121,6 @@ public class UI_Manager : MonoBehaviour
         }
     }
 
-    IEnumerator SpawnEnemeyRoutine()
-    {
-        int enemiesSpawned = 0;
-        yield return new WaitForSeconds(3.0f);
-
-        while (_stopSpawning != true)
-        {
-            if(enemiesSpawned != _waveManager.enemiesToSpawn)
-            {
-                if(_waveManager._currentWave < 5)
-                {
-                    GameObject newEnemy = Instantiate(_enemyPrefabs[0], RandomPos(), Quaternion.identity);
-                    newEnemy.transform.parent = _enemyContainer.transform;
-
-                    _waveManager.enemiesLeft++;
-                    enemiesSpawned++;
-                }
-            }
-
-            else if(_waveManager.currentWave >= 5)
-            {
-                int randomEnemyID = Random.Range(0, 2);
-
-                GameObject newEnemy = Instantiate
-            }
-            else
-            {
-                _waveManager.startOfWave = false;
-                enemiesSpawned = 0;
-                StopSpawning();
-            }
-
-            yield return new WaitForSeconds(3f);
-
-
-        }
-    }
-   
 }
     
     
