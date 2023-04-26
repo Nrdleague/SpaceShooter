@@ -116,6 +116,8 @@ public class Player : MonoBehaviour
 
     private bool _isAmmoActive = false;
 
+    private bool _isNegativePowerupActive = false;
+
     private ThrusterMeter _thrustMeter;
     
     private int _Score;
@@ -428,6 +430,11 @@ public class Player : MonoBehaviour
         _uiManager.UpdateAmmoCount(_ammoCount, _maximumAmmoCount);
     }
 
+    public void NegativePowerup()
+    {
+        _isNegativePowerupActive = true;
+        StartCoroutine(NegativePwrupRoutine());
+    }
 
     public void HomingMissile()
     {
@@ -458,7 +465,12 @@ public class Player : MonoBehaviour
         StartCoroutine(SpeedBoostPowerDownRoutine());
     }
 
-  
+    IEnumerator NegativePwrupRoutine()
+    {
+        _speed *= .75f;
+        yield return new WaitForSeconds(5.0f);
+        _speed /= .75f;
+    }
 
     IEnumerator TripleShotPowerDownRoutine()
     {
