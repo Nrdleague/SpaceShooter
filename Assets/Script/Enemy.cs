@@ -16,6 +16,8 @@ public class Enemy : MonoBehaviour
     private AudioClip _explosionSound;
     private AudioSource _AudioSource;
 
+  
+
     [SerializeField]
     private GameObject _enemylaserPrefab;
     [SerializeField]
@@ -23,12 +25,12 @@ public class Enemy : MonoBehaviour
 
     private Animator _enemyAnim;
     private EnemyMovement _enemyMove;
+    private NewEnemyMovement _newEnemyMove;
     
     void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
-        
-
+        _newEnemyMove = this.GetComponent<NewEnemyMovement>();
         
         if(_player == null)
         {
@@ -108,11 +110,11 @@ public class Enemy : MonoBehaviour
             if (_player != null)
             {
                 _player.AddScore(10);
-
+                Destroy(this.gameObject);
             }
 
             _enemyAnim.SetTrigger("OnEnemyDeath");
-            _AudioSource.Play();
+           
             Destroy(this.gameObject, 1.8f);
         }
 

@@ -19,6 +19,7 @@ TagManager:
   - health_PowerUp
   - Thruster_Fuel_Gauge
   - Missile
+  - Scifi_Enemy_Orb
   layers:
   - Default
   - TransparentFX

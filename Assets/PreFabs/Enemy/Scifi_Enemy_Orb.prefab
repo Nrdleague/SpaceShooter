@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 5676151811423920382}
   m_Layer: 0
   m_Name: Scifi_Enemy_Orb
-  m_TagString: Untagged
+  m_TagString: Scifi_Enemy_Orb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123,9 +123,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.4431939}
+  m_Offset: {x: 0, y: -0.05732298}
   serializedVersion: 2
-  m_Radius: 1.1173785
+  m_Radius: 1.465975
 --- !u!95 &1091722180720558189
 Animator:
   serializedVersion: 4
