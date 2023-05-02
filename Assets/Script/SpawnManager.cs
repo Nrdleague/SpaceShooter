@@ -8,6 +8,8 @@ public class SpawnManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject _enemyPrefab;
+    [SerializeField]
+    private GameObject _scifiEnemyOrbPrefab;
     [SerializeField ]
     private GameObject _enemyContainer;
     [SerializeField]

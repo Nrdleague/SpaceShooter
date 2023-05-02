@@ -212,6 +212,7 @@ Transform:
   - {fileID: 2070946752}
   - {fileID: 1350482846}
   - {fileID: 381608960}
+  - {fileID: 457733765}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -227,9 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35e94b6038e6f7746b240310bbe0577e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shieldHealth: 3
   _speed: 3.5
-  _currentShieldStrength: 0
   _playerSpeed: 0
   _ammoCount: 15
   _maximumAmmoCount: 0
@@ -243,6 +242,7 @@ MonoBehaviour:
   _shield: {fileID: 480407510}
   _homingMissilePrefab: {fileID: 7964708838897528395, guid: 22d3c0b58e330fc4a821a0190e89be67, type: 3}
   _explosion: {fileID: 7091601156789549068, guid: 0dc8f6fc540caaa4d81b6afb17b8b954, type: 3}
+  wayPoint: {fileID: 457733764}
   _laserShot: {fileID: 8300000, guid: 1b0b9ba2403677240b3d91044ed428a5, type: 3}
   _outOfAmmoAudio: {fileID: 8300000, guid: f960926786bd8104dae625633368c309, type: 3}
   _uiManager: {fileID: 1567619843}
@@ -574,6 +574,37 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &457733764
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 457733765}
+  m_Layer: 0
+  m_Name: wayPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &457733765
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457733764}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.61758894, y: 2.2182786, z: -0.16300595}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 204642181}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &480407510
 GameObject:
   m_ObjectHideFlags: 0
@@ -2035,6 +2066,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyPrefab: {fileID: 3896913971099706123, guid: 2a8725c6e0f3e904dba2e2147eba8a54, type: 3}
+  _scifiEnemyOrbPrefab: {fileID: 2438650987813368515}
   _enemyContainer: {fileID: 1861755762}
   powerUps:
   - {fileID: 7780360386535816471, guid: c1d79af82f0d76342adf54688a1c5df5, type: 3}
@@ -2429,6 +2461,68 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2438650987813368515 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7789593357534450817, guid: aa39fda88fc8a7544bd2683573d32365, type: 3}
+  m_PrefabInstance: {fileID: 5606389741647832642}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5606389741647832642
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6816822555857636537, guid: aa39fda88fc8a7544bd2683573d32365, type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6816822555857636537, guid: aa39fda88fc8a7544bd2683573d32365, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6816822555857636537, guid: aa39fda88fc8a7544bd2683573d32365, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 6816822555857636537, guid: aa39fda88fc8a7544bd2683573d32365, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6816822555857636537, guid: aa39fda88fc8a7544bd2683573d32365, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6816822555857636537, guid: aa39fda88fc8a7544bd2683573d32365, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6816822555857636537, guid: aa39fda88fc8a7544bd2683573d32365, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6816822555857636537, guid: aa39fda88fc8a7544bd2683573d32365, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6816822555857636537, guid: aa39fda88fc8a7544bd2683573d32365, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6816822555857636537, guid: aa39fda88fc8a7544bd2683573d32365, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6816822555857636537, guid: aa39fda88fc8a7544bd2683573d32365, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7789593357534450817, guid: aa39fda88fc8a7544bd2683573d32365, type: 3}
+      propertyPath: m_Name
+      value: Scifi_Enemy_Orb
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: aa39fda88fc8a7544bd2683573d32365, type: 3}
 --- !u!1001 &7918417886662442872
 PrefabInstance:
   m_ObjectHideFlags: 0

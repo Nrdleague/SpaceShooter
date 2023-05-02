@@ -9,13 +9,13 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
 
-    [SerializeField]
+    
     private int _shieldHealth = 3;
 
     [SerializeField]
     private float _speed = 3.5f;
 
-    [SerializeField]
+    
     private int _currentShieldStrength;
 
     public float _playerSpeed = 3.5f;
@@ -38,7 +38,9 @@ public class Player : MonoBehaviour
     private float _shakeMag = .25f;
 
     [SerializeField]
-    private float _thrustMultiplier = 5.5f;
+    private float _thrustMultiplier = 7.5f;
+
+    private float timer = 0.5f;
 
   
    
@@ -70,7 +72,12 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private GameObject _explosion;
-   
+
+    [SerializeField]
+    private GameObject wayPoint;
+
+
+
     private CameraShake _cameraShake;
 
 
@@ -186,11 +193,23 @@ public class Player : MonoBehaviour
            // _audioSource.PlayOneShot(_outOfAmmoAudio);
         }
 
-       
+        
+        if(timer > 0)
+        {
+            timer -= Time.deltaTime;
+        }
+        if(timer <= 0)
+        {
+            UpdatePosition();
+            timer = 0.5f;
+        }
         
     }
 
-
+    void UpdatePosition()
+    {
+        wayPoint.transform.position = transform.position;
+    }
 
 
     void CalculateMovement()
