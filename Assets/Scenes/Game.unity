@@ -2473,10 +2473,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1091722180720558189, guid: aa39fda88fc8a7544bd2683573d32365, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: bba686582de2e7b42bd306da1b8e1850, type: 2}
     - target: {fileID: 6816822555857636537, guid: aa39fda88fc8a7544bd2683573d32365, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -2525,7 +2521,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Scifi_Enemy_Orb
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5676151811423920382, guid: aa39fda88fc8a7544bd2683573d32365, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: aa39fda88fc8a7544bd2683573d32365, type: 3}
 --- !u!1001 &7918417886662442872
 PrefabInstance:
