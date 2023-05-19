@@ -12,9 +12,8 @@ public class Enemy : MonoBehaviour
     private float _canfire = -1;
     private Player _player;
     
-    [SerializeField]
-    private AudioClip _explosionSound;
-    private AudioSource _AudioSource;
+   
+    private AudioSource _audioSource;
 
   
 
@@ -22,6 +21,7 @@ public class Enemy : MonoBehaviour
     private GameObject _enemylaserPrefab;
     [SerializeField]
     private GameObject _explosion;
+    
 
     private Animator _enemyAnim;
     private EnemyMovement _enemyMove;
@@ -31,8 +31,9 @@ public class Enemy : MonoBehaviour
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
         _newEnemyMove = this.GetComponent<NewEnemyMovement>();
-        
-        if(_player == null)
+        _audioSource = GetComponent<AudioSource>();
+
+        if (_player == null)
         {
             Debug.LogError("The player is NULL");
         }
@@ -45,7 +46,7 @@ public class Enemy : MonoBehaviour
         }
 
       
-        _AudioSource = GetComponent<AudioSource>();
+       
     }
 
     
@@ -58,12 +59,7 @@ public class Enemy : MonoBehaviour
             _canfire = Time.time + _fireRate;
             _fireRate = Random.Range(3f, 7f);
             GameObject _enemlaserPrefab = Instantiate(_enemylaserPrefab, transform.position, Quaternion.identity);
-            EnemyLaser[] lasers = _enemylaserPrefab.GetComponentsInChildren<EnemyLaser>();
-             
-            for(int i = 0; i < lasers.Length; i++)
-            {
-                lasers[i].AssignEnemyLaser();
-            }
+           
            
 
         }
@@ -99,11 +95,12 @@ public class Enemy : MonoBehaviour
             }
 
             _enemyAnim.SetTrigger("OnEnemyDeath");
-           
-           _enemyspeed = 0;
+
+            _audioSource.Play();
+            _enemyspeed = 0;
             Destroy(this.gameObject, 1.8f);
         }
-       
+
         if (other.tag == "Laser")
         {
 
@@ -113,27 +110,30 @@ public class Enemy : MonoBehaviour
                 Destroy(this.gameObject);
             }
 
+            _enemyspeed = 0;
+            _audioSource.Play();
             _enemyAnim.SetTrigger("OnEnemyDeath");
-           
+
             Destroy(this.gameObject, 1.8f);
         }
 
-        if(other.tag == "Missile")
+        if (other.tag == "Missile")
         {
-            
-            Destroy(this.gameObject);
-            _AudioSource.Play();
+            _audioSource.Play();
 
             if (_player != null)
             {
                 _player.AddScore(10);
             }
-        }
-      
-     
 
-    }
+            Destroy(this.gameObject);
+        }
+
+
+    } 
+    
 
 
    
 }
+ 

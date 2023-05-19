@@ -83,7 +83,7 @@ public class Player : MonoBehaviour
 
 
     [SerializeField]
-    private AudioClip _laserShot;
+    private AudioClip _laserShotSoundClip;
 
     private AudioSource _audioSource;
     
@@ -141,7 +141,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         transform.position = new Vector3(0, -2, 0);
-
+        _audioSource = GetComponent<AudioSource>(); 
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UI_Manager>();
         _shieldRenderer = _shield.GetComponent<Renderer>();
@@ -151,26 +151,35 @@ public class Player : MonoBehaviour
 
         if (_spawnManager == null)
         {
-            Debug.LogError("the spawn manager is null");
+            Debug.LogError("the spawn manager is NULL.");
         }
 
         if (_uiManager == null)
         {
-            Debug.LogError("the UI manager is null");
+            Debug.LogError("the UI manager is NULL.");
         }
 
+        if(_audioSource == null)
+        {
+
+            Debug.Log("Audio source on player is NULL.");
+        }
+        else
+        {
+            _audioSource.clip = _laserShotSoundClip ;
+        }
 
         _maximumAmmoCount = _ammoCount;
 
 
         if (_cameraShake == null)
         {
-            Debug.LogError("The camerashake on player is null");
+            Debug.LogError("The camerashake on player is NULL.");
         }
 
         if(_homingMissilePrefab == null)
         {
-            Debug.Log("_homingMissileprefab is null");
+            Debug.Log("homingMissileprefab is NULL.");
         }
       
 
@@ -187,7 +196,7 @@ public class Player : MonoBehaviour
         {
             FireLaser();
 
-           
+            _audioSource.Play();
             _ammoCount -= 1;
             _uiManager.UpdateAmmoCount(_ammoCount, _maximumAmmoCount);
            // _audioSource.PlayOneShot(_outOfAmmoAudio);
@@ -310,7 +319,7 @@ public class Player : MonoBehaviour
             Debug.LogError("The audio source on the player is NULL");
         }
 
-        _audioSource.PlayOneShot(_laserShot);
+        _audioSource.PlayOneShot(_laserShotSoundClip);
 
         _audioSource = GetComponent<AudioSource>();
 

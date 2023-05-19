@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 1478812623241845247}
   - component: {fileID: 5849727719596305124}
   - component: {fileID: -8210197966613093097}
-  - component: {fileID: 8865807325048185034}
   - component: {fileID: 7918417886662442874}
+  - component: {fileID: 6375117970058939909}
+  - component: {fileID: 780267111}
   m_Layer: 0
   m_Name: Asteroid
   m_TagString: Asteroid
@@ -103,19 +104,6 @@ CircleCollider2D:
   m_Offset: {x: 0.059173584, y: 0}
   serializedVersion: 2
   m_Radius: 1.4948792
---- !u!114 &8865807325048185034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5871897163797986244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f050e416f61cdc4bbe58763cb143f09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ExplosionPrefab: {fileID: 7091601156789549068, guid: 0dc8f6fc540caaa4d81b6afb17b8b954, type: 3}
 --- !u!50 &7918417886662442874
 Rigidbody2D:
   serializedVersion: 4
@@ -137,3 +125,36 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &6375117970058939909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5871897163797986244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f050e416f61cdc4bbe58763cb143f09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _explosionPrefab: {fileID: 2240417087040241544, guid: 4f8e9d7036da93842be77ecf079a60d8, type: 3}
+--- !u!95 &780267111
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5871897163797986244}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b90137173b6fbf248967854f12b82834, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
