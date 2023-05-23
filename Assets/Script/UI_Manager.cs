@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class UI_Manager : MonoBehaviour
 {
+    //UI Text
     [SerializeField]
     private Text _scoreText;
     [SerializeField]
@@ -17,24 +18,33 @@ public class UI_Manager : MonoBehaviour
     [SerializeField]
     private Text _ammoCountText;
     [SerializeField]
+    private Text _waveText;
+    [SerializeField]
+    private Text _waveUI;
+
+    // Sprites and Images
+    [SerializeField]
     private Image _livesImage;
     [SerializeField]
     private Sprite[] _liveSprites;
-   
+
+    // UI Text
     [SerializeField]
     private Text _outOfAmmoText;
     [SerializeField]
     private Text _ammoText;
-    
+    [SerializeField]
+    private Text _waveCounter;
 
   
     
     private GameManager _gameManager;
     private Player _player;
+    private SpawnManager _spawnManager; 
 
     void Start()
     {
-        
+        _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _gameOverText.gameObject.SetActive(false);  
         _scoreText.text = " Score : " + 0;
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
@@ -45,10 +55,12 @@ public class UI_Manager : MonoBehaviour
             Debug.LogError("Game Manager is null");
         }
 
-        
+       
     }
 
+
    
+
     public void UpdateAmmoCount(int ammoCount, int maximumAmmo)
     {
         _ammoText.text = " Ammo :  " + ammoCount + " / " + maximumAmmo;
@@ -68,8 +80,7 @@ public class UI_Manager : MonoBehaviour
         _scoreText.text = " Score : " + playerScore.ToString();
     }
 
-   
-
+  
 
     public void UpdateLives(int currentLives)
     {
@@ -97,6 +108,8 @@ public class UI_Manager : MonoBehaviour
         
     }
 
+    //IEnumerators 
+
     IEnumerator GameOverFlickerRoutine()
     {
         while(true)
@@ -107,6 +120,10 @@ public class UI_Manager : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
     }
+
+    
+
+
    
 }
     
