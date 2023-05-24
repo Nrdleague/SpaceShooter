@@ -8,6 +8,68 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private bool _isGameOver;
 
+    private UI_Manager _uiManagerScript;
+    private SpawnManager _spawnManager;
+
+    public int _waveID = 0;
+    private float _waveTime = 5.0f;
+    private float _holdTime = 2.0f;
+
+    void Start()
+    {
+        _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
+        _uiManagerScript = GameObject.Find("Canvas").GetComponent<UI_Manager>();
+
+        if(_spawnManager == null)
+        {
+            Debug.LogError("GameManager::Start() Called. The Spawn Manager is NULL");
+
+        }
+
+        if(_uiManagerScript == null)
+        {
+            Debug.LogError("GameManager::Start() Called. The UI Manager is NULL");
+        }
+
+    }
+
+
+    public void StartSpawning()
+    {
+        _waveID++;
+        _waveTime += 10;
+
+
+        if(_waveID > 5)
+        {
+            Debug.Log("You Win");
+            return;
+        }
+
+        _uiManagerScript.WaveDisplayOn();
+        _uiManagerScript.WaveIDUPdate(_waveID);
+        StartCoroutine(WaveCountDown(_waveTime));
+        _spawnManager.StartSpawning(_waveID);
+
+
+    }
+
+    private IEnumerator WaveCountDown(float _time)
+    {
+        while(_time > 0)
+        {
+            _time -= Time.deltaTime;
+            _uiManagerScript.WaveTimeUpdate(_time);
+            yield return new WaitForEndOfFrame();
+        }
+
+        _spawnManager.StopSpawning();
+        yield return _holdTime;
+        StartSpawning();
+    }
+
+
+
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.R) &&  _isGameOver == true)

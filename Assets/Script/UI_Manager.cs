@@ -25,8 +25,12 @@ public class UI_Manager : MonoBehaviour
     private Text _outOfAmmoText;
     [SerializeField]
     private Text _ammoText;
-    
+    public Text _waveIDDisplay;
+    public Text _waveTimeDisplay;
 
+    public GameObject _waveDisplay;
+
+    public bool _waveEnded = false;
   
     
     private GameManager _gameManager;
@@ -47,6 +51,50 @@ public class UI_Manager : MonoBehaviour
 
         
     }
+
+    public void WaveDisplayOn()
+    {
+        _waveDisplay.SetActive(true);
+    }
+    public void WaveDisplayOff()
+    {
+        _waveDisplay.SetActive(false);
+    }
+    public void WaveIDUPdate(int waveID)
+    {
+        _waveIDDisplay.text = "Wave : " + waveID.ToString();
+    }
+    public void WaveTimeUpdate(float _seconds)
+    {
+        float _waveTime = Mathf.RoundToInt(_seconds);
+        _waveTimeDisplay.text = _waveTime.ToString();
+
+        if(_waveTime > 0)
+        {
+            _waveEnded = false;
+        }
+        else
+        {
+            _waveEnded = true;
+            StartCoroutine(WaveDisplayFlickerRoutine());
+        }
+    }
+
+
+
+    private IEnumerator WaveDisplayFlickerRoutine()
+    {
+        while (_waveEnded)
+        {
+            yield return new WaitForSeconds(0.5f);
+            _waveDisplay.SetActive(false);
+            yield return new WaitForSeconds(0.5f);
+            _waveDisplay.SetActive(true);
+
+        }
+    }
+
+
 
    
     public void UpdateAmmoCount(int ammoCount, int maximumAmmo)
