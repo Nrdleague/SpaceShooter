@@ -44,7 +44,7 @@ public class Asteroid : MonoBehaviour
             Destroy(this.gameObject, 0.25f);
         }
 
-        if(Other.tag == "PLayer")
+        if(Other.tag == "Player")
         {
             Player player = Other.transform.GetComponent<Player>(); 
             if(player != null)
