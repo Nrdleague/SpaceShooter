@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour
     private float _fireRate = 3.0f;
     private float _canfire = -1;
     private Player _player;
+
+    private bool _waveEnded = false;
     
     [SerializeField]
     private AudioClip _explosionSound;
@@ -85,6 +87,12 @@ public class Enemy : MonoBehaviour
     }
 
     
+
+    public void ClearField()
+    {
+        _canfire = -1;
+        _waveEnded = true;
+    }
 
 
     public void OnTriggerEnter2D(Collider2D other)
