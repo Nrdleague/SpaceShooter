@@ -1260,8 +1260,13 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
+<<<<<<< HEAD
   m_AnchoredPosition: {x: -295, y: 129.56}
   m_SizeDelta: {x: 160, y: 45.564}
+=======
+  m_AnchoredPosition: {x: -275.53967, y: 123.52}
+  m_SizeDelta: {x: 200.7201, y: 58.204}
+>>>>>>> 1189efeca4d5951c7939ba42e780a1fdaf62b713
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1117030755
 GameObject:
@@ -1304,7 +1309,11 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 12800000, guid: 585188cdc4600544eb408bee749e4b3a, type: 3}
     m_FontSize: 25
+<<<<<<< HEAD
     m_FontStyle: 0
+=======
+    m_FontStyle: 2
+>>>>>>> 1189efeca4d5951c7939ba42e780a1fdaf62b713
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 40
@@ -1687,7 +1696,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1567619847}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1735,6 +1744,88 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1410301635}
+  m_CullTransparentMesh: 1
+--- !u!1 &1436116736
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1436116737}
+  - component: {fileID: 1436116739}
+  - component: {fileID: 1436116738}
+  m_Layer: 5
+  m_Name: Fuel_Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1436116737
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436116736}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1567619847}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -288.59, y: -176}
+  m_SizeDelta: {x: 160, y: 51.6781}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1436116738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436116736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 585188cdc4600544eb408bee749e4b3a, type: 3}
+    m_FontSize: 50
+    m_FontStyle: 2
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 50
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'FUEL
+
+'
+--- !u!222 &1436116739
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436116736}
   m_CullTransparentMesh: 1
 --- !u!1 &1441112295
 GameObject:
@@ -1998,6 +2089,8 @@ MonoBehaviour:
   _gameOverText: {fileID: 293786685}
   _restartText: {fileID: 701378818}
   _ammoCountText: {fileID: 1024960768}
+  _waveText: {fileID: 0}
+  _waveUI: {fileID: 0}
   _livesImage: {fileID: 486263414}
   _liveSprites:
   - {fileID: 21300000, guid: ba53e111f0125654cabfd4eefaf3a657, type: 3}
@@ -2006,10 +2099,14 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9fe6f40efddf0b64fb68a3382b14a4db, type: 3}
   _outOfAmmoText: {fileID: 1410301637}
   _ammoText: {fileID: 1024960768}
+<<<<<<< HEAD
   _waveIDDisplay: {fileID: 1485896669}
   _waveTimeDisplay: {fileID: 822896773}
   _waveDisplay: {fileID: 733815515}
   _waveEnded: 0
+=======
+  _waveCounter: {fileID: 0}
+>>>>>>> 1189efeca4d5951c7939ba42e780a1fdaf62b713
 --- !u!114 &1567619844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2089,9 +2186,14 @@ RectTransform:
   - {fileID: 1024960770}
   - {fileID: 293786684}
   - {fileID: 701378817}
+<<<<<<< HEAD
   - {fileID: 519057338}
   - {fileID: 1410301636}
   - {fileID: 733815516}
+=======
+  - {fileID: 1410301636}
+  - {fileID: 1436116737}
+>>>>>>> 1189efeca4d5951c7939ba42e780a1fdaf62b713
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2327,6 +2429,7 @@ MonoBehaviour:
   - {fileID: 4677708105301658263, guid: 7b529c9138b58ef418abe49149acc930, type: 3}
   - {fileID: 7033002190366013075, guid: b3b08e89157734b4dbe1714aa74ca869, type: 3}
   - {fileID: 8940437261522936323, guid: f9e0015172c8ccc41b6697f2893a27dd, type: 3}
+  - {fileID: 7026597242747866425, guid: 5d16fb2bc4ec427468259452352c2378, type: 3}
 --- !u!1 &1861755762
 GameObject:
   m_ObjectHideFlags: 0

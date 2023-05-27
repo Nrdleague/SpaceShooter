@@ -25,11 +25,12 @@ public class Enemy : MonoBehaviour
 
     private Animator _enemyAnim;
     private EnemyMovement _enemyMove;
+
     
     void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
-        
+      
 
         
         if(_player == null)
@@ -85,6 +86,7 @@ public class Enemy : MonoBehaviour
 
     }
 
+    
 
     public void ClearField()
     {
@@ -97,6 +99,8 @@ public class Enemy : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+
+           
             Player Player = other.transform.GetComponent<Player>();
 
             if (Player != null)
@@ -109,6 +113,7 @@ public class Enemy : MonoBehaviour
            _enemyspeed = 0;
             Destroy(this.gameObject, 1.8f);
         }
+        
        
         if (other.tag == "Laser")
         {

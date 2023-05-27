@@ -67,6 +67,9 @@ public class Powerup : MonoBehaviour
                     case 5:
                         player.HomingMissile();
                         break;
+                    case 6:
+                        player.NegativePowerup();
+                        break;
                     default:
                         Debug.Log("normal");
                         break;

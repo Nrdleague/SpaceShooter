@@ -49,9 +49,17 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(SpawnPowerUpRoutine());
         
     }
+<<<<<<< HEAD
     
    
     public void StopSpawning()
+=======
+
+
+
+
+    IEnumerator SpawnEnemyRoutine()
+>>>>>>> 1189efeca4d5951c7939ba42e780a1fdaf62b713
     {
         _stopSpawning = true;
         ClearEnemies();
@@ -135,9 +143,13 @@ public class SpawnManager : MonoBehaviour
         Debug.Log("SpawnManager::spawnEnemyRoutine() Called");
 
         yield return new WaitForSeconds(4.0f);
+<<<<<<< HEAD
 
 
         while(_stopSpawning == false)
+=======
+        while (_stopSpawning == false)
+>>>>>>> 1189efeca4d5951c7939ba42e780a1fdaf62b713
         {
             Vector3 posToSpawn = new Vector3(Random.Range(8.0f, -9.0f), 7, 0);
             GameObject newEnemy = Instantiate(_enemyPrefab, posToSpawn, Quaternion.identity);
@@ -146,7 +158,7 @@ public class SpawnManager : MonoBehaviour
             newEnemy.transform.parent = _enemyContainer.transform;
             yield return new WaitForSeconds(6.0f);
         }
-        
+
     }
 
     IEnumerator SpawnPowerUpRoutine()
