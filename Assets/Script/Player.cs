@@ -1,10 +1,5 @@
-using System;
 using System.Collections;
-using System.Net.Http.Headers;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -28,9 +23,9 @@ public class Player : MonoBehaviour
 
     private float _speedmultiplier = 2.0f;
 
-    private int _ammoAmount = 0;
+    private int _ammoCount = 15;
 
-    public int _maxAmmoCount = 15;
+    public int _maximumAmmoCount;
 
     private float _shakeDuration = .1f;
 
@@ -142,7 +137,7 @@ public class Player : MonoBehaviour
         }
 
 
-        _ammoAmount = _maxAmmoCount;
+        _maximumAmmoCount = _ammoCount;
 
 
         if (_cameraShake == null)
@@ -161,11 +156,13 @@ public class Player : MonoBehaviour
         CalculateMovement();
         
 
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire && _ammoCount != 0)
         {
             if (_hasAmmo == true)
             {
                 FireLaser();
+                _ammoCount = -1;
+                _uiManager.UpdateAmmoCount(_ammoCount, _maximumAmmoCount);
             }
         }
 
@@ -182,7 +179,7 @@ public class Player : MonoBehaviour
 
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
 
-        transform.Translate(direction * _speed * Time.deltaTime);
+        transform.Translate((transform.up * Input.GetAxisRaw("Vertical") + transform.right * Input.GetAxisRaw("Horizontal")).normalized * _speed * Time.deltaTime);
 
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.8f, 0));
 
@@ -248,20 +245,7 @@ public class Player : MonoBehaviour
             Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
         }
 
-        if(_ammoAmount == 0)
-        {
-            _noAmmo = true;
-            _ammoAmount = 0;
-           // _audioSource.PlayOutOfAmmoSound();
-
-            return;
-        }
-        else
-        {
-            _noAmmo = false;
-        }
-
-        _ammoAmount -= 1;
+       
     }
 
   
@@ -462,8 +446,9 @@ public class Player : MonoBehaviour
     }
     public void RefillAmmo()
     {
-        _ammoAmount = _maxAmmoCount;
-        _hasAmmo = true;
+        _ammoCount = _maximumAmmoCount;
+        _uiManager.UpdateAmmoCount(_ammoCount, _maximumAmmoCount);
+        _hasAmmo = true;    
     }
 
     public void HealthRefill()
