@@ -18,36 +18,45 @@ public class UI_Manager : MonoBehaviour
     private Image _livesImage;
     [SerializeField]
     private Sprite[] _liveSprites;
-
+    
     [SerializeField]
     private Text _outOfAmmoText;
     [SerializeField]
     private Text _ammoText;
-    [SerializeField]
-    private Text _waveDisplay;
 
+    //Wave System
+    [SerializeField]
+    private Text _waveText;
+    
+
+    private int _currentEnemyDestroyed = 0;
+    private int _waveCount = 1;
+   
+
+    
 
   
-    private GameManager _gameManager;
     private Player _player;
+    private SpawnManager _spawnManager;
+    private GameManager _gameManager;
 
     void Start()
     {
 
         _gameOverText.gameObject.SetActive(false);
+        _waveText.gameObject.SetActive(false);  
         _scoreText.text = " Score : " + 0;
+
+
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         _player = GameObject.Find("Player").GetComponent<Player>();
-       
-
-        if (_gameManager == null)
-        {
-            Debug.LogError("Game Manager is null");
-        }
-
-
+        _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
     }
 
+    void Update()
+    {
+        
+    }
 
     public void UpdateAmmoCount(int ammoCount, int maximumAmmo)
     {
@@ -75,6 +84,7 @@ public class UI_Manager : MonoBehaviour
     {
         //display Image Sprite
         //give it a new one based on the currentLives index
+        Debug.Log("UpdateLives is NULL");
         _livesImage.sprite = _liveSprites[currentLives];
 
         if (currentLives == 0)
@@ -84,21 +94,43 @@ public class UI_Manager : MonoBehaviour
 
     }
 
-    public void DisplayWaveNumber(int waveNumber)
+    /// WAVE Course
+
+    public void UpdateWaveNumber(int currentWave, int totalWaves)
     {
-        _waveDisplay.text = "Wave" + waveNumber;
-        _waveDisplay.gameObject.SetActive(true);
-        StartCoroutine(WaveDisplayRoutine());
+        _waveText.text = " WAVE " + currentWave +  "/ " + totalWaves.ToString();
+       
+        
     }
 
-    IEnumerator WaveDisplayRoutine()
+    public void WaveTextSequence()
     {
-        while(_waveDisplay == true)
-        {
-            yield return new WaitForSeconds(3f);
-            _waveDisplay.gameObject.SetActive(false);
-        }
+        _waveText.gameObject.SetActive(true);
+        StartCoroutine(WaveText());
+       
     }
+
+    IEnumerator WaveText()
+    {
+
+
+        _waveText.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
+        _waveText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        _waveText.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
+        _waveText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        _waveText.gameObject.SetActive(false);
+    }     
+           
+        
+
+        
+    
+   
+   
 
     void GameOverSequence()
     {
@@ -109,6 +141,12 @@ public class UI_Manager : MonoBehaviour
         StartCoroutine(GameOverFlickerRoutine());
 
     }
+
+   
+
+
+   
+
 
     IEnumerator GameOverFlickerRoutine()
     {
@@ -121,6 +159,13 @@ public class UI_Manager : MonoBehaviour
         }
     }
 
+    
+
+   
+     
+
+
+    
 }
     
     

@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour
     private float _fireRate = 3.0f;
     private float _canfire = -1;
     private Player _player;
+
+    private bool _waveEnded = false;
     
     [SerializeField]
     private AudioClip _explosionSound;
@@ -20,6 +22,7 @@ public class Enemy : MonoBehaviour
     private GameObject _enemylaserPrefab;
     [SerializeField]
     private GameObject _explosion;
+    
 
     private Animator _enemyAnim;
     private EnemyMovement _enemyMove;
@@ -111,7 +114,7 @@ public class Enemy : MonoBehaviour
             if (_player != null)
             {
                 _player.AddScore(10);
-                _player.CurrentKillCount();
+                
             }
 
             _enemyAnim.SetTrigger("OnEnemyDeath");
@@ -134,6 +137,12 @@ public class Enemy : MonoBehaviour
       
      
 
+    }
+
+    public void ClearField()
+    {
+        _canfire = -1;
+        _waveEnded = true;
     }
 
 

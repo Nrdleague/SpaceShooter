@@ -7,6 +7,16 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+   
+    [SerializeField]
+    private int _waveCount = 1;
+    private int _totalWaves = 4;
+    private float _spawnRate;
+    private float _enemySpawnTime = 5.0f;
+    //Wave system code
+    private int _spawnedNumberOfEnemies;
+    private int _numberOfEnemiesToSpawn = 5;
+
     [SerializeField]
     private GameObject _enemyPrefab;
     [SerializeField ]
@@ -15,84 +25,93 @@ public class SpawnManager : MonoBehaviour
     private GameObject [] powerUps;
     private bool _isPlayerAlive = false;
 
-    private bool _spawnWaveOne;
-    private bool _spawnWaveTwo;
-    private bool _spawnWaveThree;
+    private Coroutine _spawnEnemy;
 
     private UI_Manager _uiManager;
+    private GameManager _gameManager;
 
     private bool _stopSpawning = false;
 
 
-    public void Start()
+    void Start()
     {
-        _uiManager = GameObject.FindObjectOfType<UI_Manager>();
+        _uiManager = GameObject.Find("Canvas").GetComponent<UI_Manager>();
+        _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+
+        if(_gameManager == null)
+        {
+            Debug.Log("The game manager is NULL");
+        }
+
+       
+
     }
 
    
 
 
+
+
+    public void StopSpawning()
+    {
+        _stopSpawning = true;
+        ClearEnemies();
+    }
+
+    public void ClearEnemies()
+    {
+        _stopSpawning = true;
+        Enemy[] _activeEnemies = _enemyContainer.GetComponentsInChildren<Enemy>();
+
+        foreach(Enemy _enemy in _activeEnemies)
+        {
+            _enemy.ClearField();
+        }
+    }
+
+   
+
     public void StartSpawning()
     {
-        _spawnWaveOne = true;
-        StartCoroutine(EnemySpawn());
-        StartCoroutine(SpawnEnemyRoutine());
+       // StartCoroutine(SpawnEnemyRoutine());
         StartCoroutine(SpawnPowerUpRoutine());
-        
-    }
-    
-    public void WaveTwo()
-    {
-        _spawnWaveOne = false;
-        _spawnWaveTwo = true;
-        Debug.Log("Wave Two");
+        //SpawnWaves coroutine spawns enemy's in 
+        StartCoroutine(SpawnWaves());
     }
 
-    public void WaveThree()
-    {
-        _spawnWaveTwo = false;
-        _spawnWaveThree = true;
-        Debug.Log("wave three");
-    }
+  
 
-    IEnumerator EnemySpawn()
-    {
-        yield return new WaitForSeconds(1f);
-
-        while (_isPlayerAlive == true && _spawnWaveOne == true)
-        {
-            GameObject newEnemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity);   
-            newEnemy.transform.parent = _enemyContainer.transform;
-            yield return new WaitForSeconds(2f);
-        }
-
-        while (_isPlayerAlive == true && _spawnWaveTwo == true)
-        {
-            int _randomEnemy = Random.Range(0, 2);
-            GameObject newEnemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity);
-            newEnemy.transform.parent = _enemyContainer.transform;
-            yield return new WaitForSeconds(2f);
-        }
-
-        while (_isPlayerAlive && _spawnWaveThree == true)
-        {
-            int _randomEnemy = Random.Range(0, 2);
-            GameObject newEnemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity);
-            newEnemy.transform.parent = _enemyContainer.transform;
-            yield return new WaitForSeconds(2f);
-        }
-    }
-       
 
     IEnumerator SpawnEnemyRoutine()
     {
+        _spawnedNumberOfEnemies = 0;
         yield return new WaitForSeconds(4.0f);
-        while(_stopSpawning == false)
+        while (_stopSpawning == false && _spawnedNumberOfEnemies < _numberOfEnemiesToSpawn)
         {
+            //spawnumber is counter
+
             Vector3 posToSpawn = new Vector3(Random.Range(8.0f, -9.0f), 7, 0);
             GameObject newEnemy = Instantiate(_enemyPrefab, posToSpawn, Quaternion.identity);
             newEnemy.transform.parent = _enemyContainer.transform;
+            _spawnedNumberOfEnemies += 1;
+
+            
             yield return new WaitForSeconds(6.0f);
+            
+
+            //Wave System
+           
+
+        }
+
+        
+        _waveCount += 1;
+        StartCoroutine(SpawnWaves());
+       
+        if(_waveCount == 4)
+        {
+            Debug.Log("Stop waves, and begin final boss");
+            yield break;
 
         }
 
@@ -117,6 +136,15 @@ public class SpawnManager : MonoBehaviour
 
     }
 
+
+    IEnumerator SpawnWaves()
+    {
+       yield return new WaitForSeconds(2.0f);
+       _uiManager.UpdateWaveNumber(_waveCount, _totalWaves);
+        _uiManager.WaveTextSequence();
+        yield return new WaitForSeconds(2.0f);
+        StartCoroutine(SpawnEnemyRoutine());
+    }
     
   
   
