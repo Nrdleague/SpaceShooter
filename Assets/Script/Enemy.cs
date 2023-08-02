@@ -22,10 +22,15 @@ public class Enemy : MonoBehaviour
     private GameObject _enemylaserPrefab;
     [SerializeField]
     private GameObject _explosion;
+    
 
     private Animator _enemyAnim;
     private EnemyMovement _enemyMove;
+<<<<<<< HEAD
 
+=======
+    private SpawnManager _spawnManager;
+>>>>>>> de4ac4656b12d3f28f0d2e41ac12c8cc8f36ea84
     
     void Start()
     {
@@ -117,16 +122,19 @@ public class Enemy : MonoBehaviour
        
         if (other.tag == "Laser")
         {
+            Destroy(other.gameObject);  
+
 
             if (_player != null)
             {
                 _player.AddScore(10);
-
+                
             }
 
             _enemyAnim.SetTrigger("OnEnemyDeath");
             _AudioSource.Play();
             Destroy(this.gameObject, 1.8f);
+            
         }
 
         if(other.tag == "Missile")
@@ -143,6 +151,12 @@ public class Enemy : MonoBehaviour
       
      
 
+    }
+
+    public void ClearField()
+    {
+        _canfire = -1;
+        _waveEnded = true;
     }
 
 
