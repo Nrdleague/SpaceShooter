@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private bool _isGameOver;
 
+<<<<<<< HEAD
     private UI_Manager _uiManagerScript;
     private SpawnManager _spawnManager;
 
@@ -29,10 +30,32 @@ public class GameManager : MonoBehaviour
         if(_uiManagerScript == null)
         {
             Debug.LogError("GameManager::Start() Called. The UI Manager is NULL");
+=======
+    private UI_Manager _uiManager;
+    private SpawnManager _spawnManager;
+
+  
+    void Start()
+    {
+        _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
+        _uiManager = GameObject.Find("Canvas").GetComponent<UI_Manager>();
+
+
+        if(_spawnManager == null)
+        {
+            Debug.Log("The spawn manager is NULL.");
+
+        }
+
+        if(_uiManager == null)
+        {
+            Debug.Log("The UI Manager is NULL.");
+>>>>>>> de4ac4656b12d3f28f0d2e41ac12c8cc8f36ea84
         }
 
     }
 
+<<<<<<< HEAD
 
     public void StartSpawning()
     {
@@ -70,6 +93,8 @@ public class GameManager : MonoBehaviour
 
 
 
+=======
+>>>>>>> de4ac4656b12d3f28f0d2e41ac12c8cc8f36ea84
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.R) &&  _isGameOver == true)
@@ -86,9 +111,14 @@ public class GameManager : MonoBehaviour
        
     }
 
+   
+
     public void GameOver()
     {
         _isGameOver = true;
        
     }
+
+
+   
 }
